@@ -11,12 +11,13 @@ description: 检查代码规范、ESLint 规则、Prettier 格式化和项目最
 # ESLint 检查
 pnpm lint
 
-# Prettier 格式化
+# Prettier 格式化（自动修复）
 pnpm format
 
+# Prettier 格式检查（只读）
+pnpm prettier --check .
+
 # 类型检查
-pnpm type-check
-# 或
 npx tsc --noEmit
 ```
 
@@ -25,10 +26,13 @@ npx tsc --noEmit
 ### 1. ESLint 规则检查
 
 - [ ] 无未使用的导入（unused-imports）
-- [ ] 无 console.log（生产代码）
+- [ ] 无 console.log（生产代码）- `no-console: warn`
 - [ ] 正确的 import 顺序（import/order）
 - [ ] JSX 可访问性（jsx-a11y）
 - [ ] React Hooks 规则（react-hooks）
+- [ ] 组件自闭合标签（react/self-closing-comp）
+- [ ] Props 排序（react/jsx-sort-props）
+- [ ] 语句间空行（padding-line-between-statements）
 
 ### 2. Prettier 格式检查
 
@@ -65,6 +69,12 @@ npx tsc --noEmit
 - [ ] 响应式类名顺序正确（mobile-first）
 - [ ] dark: 前缀使用正确
 
+### 7. HeroUI 组件规范
+
+- [ ] 使用 @heroui/* 官方组件
+- [ ] 组件 props 类型定义完整
+- [ ] 主题配置与 @heroui/theme 一致
+
 ## 项目特定配置
 
 ### ESLint 配置
@@ -83,10 +93,14 @@ npx tsc --noEmit
 
 ```bash
 # 自动修复 ESLint 问题
-pnpm lint -- --fix
+pnpm lint
 
 # 自动格式化
 pnpm format
+
+# 仅检查不修复
+pnpm eslint .
+pnpm prettier --check .
 ```
 
 ## 提交前检查
