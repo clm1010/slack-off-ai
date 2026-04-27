@@ -1,29 +1,26 @@
 # Next.js & HeroUI Template
 
-This is a template for creating applications using Next.js 14 (pages directory) and HeroUI (v2).
+This is a template for creating applications using Next.js 15 (app directory) and HeroUI (v3).
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/next-pages-template)
-
-> Note: Since Next.js 14, the pages router is recommend migrating to the [new App Router](https://nextjs.org/docs/app) to leverage React's latest features
->
-> Read more: [Pages Router](https://nextjs.org/docs/pages)
+[Try it on CodeSandbox](https://githubbox.com/heroui-inc/heroui/next-app-template)
 
 ## Technologies Used
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI](https://heroui.com)
-- [Tailwind CSS](https://tailwindcss.com)
+- [Next.js 15](https://nextjs.org/docs/getting-started)
+- [HeroUI v3](https://heroui.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
+- [TypeScript](https://www.typescriptlang.org/)
 - [next-themes](https://github.com/pacocoursey/next-themes)
 
 ## How to Use
 
+### Use the template with create-next-app
+
 To create a new project based on this template using `create-next-app`, run the following command:
 
 ```bash
-npx create-next-app -e https://github.com/heroui-inc/next-pages-template
+npx create-next-app -e https://github.com/heroui-inc/next-app-template
 ```
 
 ### Install dependencies
@@ -40,16 +37,6 @@ npm install
 npm run dev
 ```
 
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
 ## License
 
-Licensed under the [MIT license](https://github.com/heroui-inc/next-pages-template/blob/main/LICENSE).
+Licensed under the [MIT license](https://github.com/heroui-inc/next-app-template/blob/main/LICENSE).
