@@ -1,9 +1,18 @@
 @import 'tailwindcss';
 @import '@heroui/styles';
+@import './workspace.css';
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: 'font', sans-serif;
-  --font-mono: 'monospace', monospace;
+  --font-sans:
+    var(--font-inter), ui-sans-serif, system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: ui-monospace, monospace;
+
+  /* 工作台物理色由 .workspace-shell 覆盖；此处仅作 Tailwind 工具类后备 */
+  --color-workspace-sidebar: #f9f9f9;
+  --color-workspace-canvas: #f2f2f2;
+  --color-workspace-border: #e8e8e8;
+  --color-workspace-muted: #737373;
+  --color-workspace-accent-green: #22c55e;
 }

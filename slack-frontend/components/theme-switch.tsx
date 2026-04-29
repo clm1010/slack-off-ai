@@ -1,10 +1,9 @@
 'use client'
 
 import { FC } from 'react'
+import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import clsx from 'clsx'
-
-import { SunFilledIcon, MoonFilledIcon } from '@/components/icons'
 
 export interface ThemeSwitchProps {
   className?: string
@@ -30,7 +29,11 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
       )}
       onClick={handleToggle}
     >
-      {isLight ? <SunFilledIcon size={22} /> : <MoonFilledIcon size={22} />}
+      {isLight ? (
+        <Sun className='size-[22px]' strokeWidth={2} />
+      ) : (
+        <Moon className='size-[22px]' strokeWidth={2} />
+      )}
     </button>
   )
 }

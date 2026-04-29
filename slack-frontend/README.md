@@ -1,42 +1,20 @@
-# Next.js & HeroUI Template
+# 摸鱼AI · 前端（moyu-ai-frontend）
 
-This is a template for creating applications using Next.js 15 (app directory) and HeroUI (v3).
+基于 **Next.js 16（App Router）** 与 **HeroUI v3** 的全栈前端：营销中心 + 工作台 UI（Mock 阶段可对接后端）。
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/heroui/next-app-template)
+## 本地开发
 
-## Technologies Used
-
-- [Next.js 15](https://nextjs.org/docs/getting-started)
-- [HeroUI v3](https://heroui.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
-
-## How to Use
-
-### Use the template with create-next-app
-
-To create a new project based on this template using `create-next-app`, run the following command:
+在**本目录**（仓库中的 `slack-frontend` 文件夹）执行：
 
 ```bash
-npx create-next-app -e https://github.com/heroui-inc/next-app-template
+pnpm install
+pnpm dev
 ```
 
-### Install dependencies
+## 技术栈
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+- Next.js 16、React 19、Tailwind CSS 4、HeroUI v3、next-themes、TypeScript
 
-```bash
-npm install
-```
+## 品牌配置
 
-### Run the development server
-
-```bash
-npm run dev
-```
-
-## License
-
-Licensed under the [MIT license](https://github.com/heroui-inc/next-app-template/blob/main/LICENSE).
+站点名称与 SEO 文案集中在 `config/site.ts`（默认 `摸鱼AI`）。工作台 Logo 文案在 `components/workspace/brand-mark.tsx`（`摸鱼` + `AI` 字标）。

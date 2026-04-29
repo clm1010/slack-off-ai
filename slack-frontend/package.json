@@ -1,5 +1,5 @@
 {
-  "name": "slack-frontend",
+  "name": "moyu-ai-frontend",
   "version": "1.0.0",
   "type": "module",
   "private": true,
@@ -26,10 +26,12 @@
     "@heroui/styles": "3.0.3",
     "clsx": "2.1.1",
     "intl-messageformat": "10.7.16",
+    "lucide-react": "^1.14.0",
     "next": "16.2.4",
     "next-themes": "0.4.6",
     "react": "19.2.5",
-    "react-dom": "19.2.5"
+    "react-dom": "19.2.5",
+    "react-resizable-panels": "^4.10.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",

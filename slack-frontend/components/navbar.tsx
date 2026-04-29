@@ -2,19 +2,12 @@
 
 import { useState } from 'react'
 import { Button, Kbd, Link, TextField, InputGroup } from '@heroui/react'
+import { Bird, FolderGit2, Heart, Menu, MessagesSquare, Search, Sparkles, X } from 'lucide-react'
 import NextLink from 'next/link'
 import clsx from 'clsx'
 
 import { siteConfig } from '@/config/site'
 import { ThemeSwitch } from '@/components/theme-switch'
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-  Logo
-} from '@/components/icons'
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -23,7 +16,11 @@ export const Navbar = () => {
     <TextField aria-label='Search' type='search'>
       <InputGroup>
         <InputGroup.Prefix>
-          <SearchIcon className='text-base text-muted pointer-events-none flex-shrink-0' />
+          <Search
+            aria-hidden
+            className='pointer-events-none size-4 shrink-0 text-muted'
+            strokeWidth={2}
+          />
         </InputGroup.Prefix>
         <InputGroup.Input className='text-sm' placeholder='Search...' />
         <InputGroup.Suffix>
@@ -41,10 +38,10 @@ export const Navbar = () => {
       <header className='mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-6'>
         <div className='flex items-center gap-4'>
           <NextLink className='flex items-center gap-1' href='/'>
-            <Logo />
-            <p className='font-bold text-inherit'>ACME</p>
+            <Sparkles aria-hidden className='size-9 shrink-0 text-foreground' strokeWidth={2} />
+            <p className='font-bold text-inherit'>{siteConfig.name}</p>
           </NextLink>
-          <ul className='hidden lg:flex gap-4 ml-2'>
+          <ul className='ml-2 hidden gap-4 lg:flex'>
             {siteConfig.navItems.map((item) => (
               <li key={item.href}>
                 <NextLink
@@ -61,14 +58,14 @@ export const Navbar = () => {
           </ul>
         </div>
 
-        <div className='hidden sm:flex items-center gap-2'>
+        <div className='hidden items-center gap-2 sm:flex'>
           <Link
             aria-label='Twitter'
             href={siteConfig.links.twitter}
             rel='noopener noreferrer'
             target='_blank'
           >
-            <TwitterIcon className='text-muted' />
+            <Bird className='text-muted' size={24} strokeWidth={2} />
           </Link>
           <Link
             aria-label='Discord'
@@ -76,7 +73,7 @@ export const Navbar = () => {
             rel='noopener noreferrer'
             target='_blank'
           >
-            <DiscordIcon className='text-muted' />
+            <MessagesSquare className='text-muted' size={24} strokeWidth={2} />
           </Link>
           <Link
             aria-label='Github'
@@ -84,7 +81,7 @@ export const Navbar = () => {
             rel='noopener noreferrer'
             target='_blank'
           >
-            <GithubIcon className='text-muted' />
+            <FolderGit2 className='text-muted' size={24} strokeWidth={2} />
           </Link>
           <ThemeSwitch />
           <div className='hidden lg:flex'>{searchInput}</div>
@@ -94,50 +91,45 @@ export const Navbar = () => {
               variant='tertiary'
               onPress={() => window.open(siteConfig.links.sponsor, '_blank')}
             >
-              <HeartFilledIcon className='text-danger' />
+              <Heart
+                aria-hidden
+                className='text-danger'
+                fill='currentColor'
+                size={18}
+                strokeWidth={2}
+              />
               Sponsor
             </Button>
           </div>
         </div>
 
-        <div className='flex sm:hidden items-center gap-2'>
+        <div className='flex items-center gap-2 sm:hidden'>
           <Link
             aria-label='Github'
             href={siteConfig.links.github}
             rel='noopener noreferrer'
             target='_blank'
           >
-            <GithubIcon className='text-muted' />
+            <FolderGit2 className='text-muted' size={24} strokeWidth={2} />
           </Link>
           <ThemeSwitch />
           <button
             aria-expanded={isMenuOpen}
             aria-label='Toggle menu'
             className='p-2'
+            type='button'
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <svg className='h-6 w-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-              {isMenuOpen ? (
-                <path
-                  d='M6 18L18 6M6 6l12 12'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                />
-              ) : (
-                <path
-                  d='M4 6h16M4 12h16M4 18h16'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                />
-              )}
-            </svg>
+            {isMenuOpen ? (
+              <X aria-hidden className='size-6 text-foreground' strokeWidth={2} />
+            ) : (
+              <Menu aria-hidden className='size-6 text-foreground' strokeWidth={2} />
+            )}
           </button>
         </div>
       </header>
 
-      {isMenuOpen && (
+      {isMenuOpen ? (
         <div className='border-t border-separator sm:hidden'>
           <div className='p-4'>{searchInput}</div>
           <ul className='flex flex-col gap-2 px-4 pb-4'>
@@ -152,7 +144,7 @@ export const Navbar = () => {
                         ? 'text-danger'
                         : 'text-foreground'
                   )}
-                  href='#'
+                  href={item.href}
                 >
                   {item.label}
                 </Link>
@@ -160,7 +152,7 @@ export const Navbar = () => {
             ))}
           </ul>
         </div>
-      )}
+      ) : null}
     </nav>
   )
 }

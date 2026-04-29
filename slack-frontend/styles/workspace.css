@@ -1,0 +1,84 @@
+/**
+ * 摸鱼AI 工作台主题：与 HeroUI 语义变量对齐，支持 html.dark（next-themes）
+ * 单一来源，避免组件内硬编码中性色导致深浅切换断裂
+ */
+
+@layer base {
+  .workspace-shell {
+    --ws-primary-bg: #171717;
+    --ws-primary-fg: #fafafa;
+    --ws-primary-hover: #262626;
+    --ws-nav-active-bg: #ececec;
+    --ws-nav-active-fg: #171717;
+    --ws-doc-active-bg: #fdf2f8;
+    --ws-doc-active-border: #f472b6;
+    --ws-doc-tree-bg: rgba(255, 255, 255, 0.72);
+    --ws-success: #16a34a;
+    --color-workspace-sidebar: #f9f9f9;
+
+    color: var(--foreground);
+    --background: #f5f5f5;
+    --foreground: #171717;
+    --surface: #ffffff;
+    --surface-secondary: #f9f9f9;
+    --surface-tertiary: #efefef;
+    --overlay: #ffffff;
+    --overlay-foreground: #171717;
+    --muted: #737373;
+    --accent: #171717;
+    --accent-foreground: #fafafa;
+    --default: #ebebeb;
+    --default-foreground: #262626;
+    --border: #e5e5e5;
+    --separator: #e8e8e8;
+    --focus: #171717;
+    --link: #171717;
+    --field-background: #ffffff;
+    --field-foreground: #171717;
+    --field-placeholder: #a3a3a3;
+    --field-border: #e5e5e5;
+    --field-border-width: 1px;
+    --segment: #ffffff;
+    --segment-foreground: #171717;
+    --danger: #dc2626;
+    --danger-foreground: #ffffff;
+  }
+
+  .dark .workspace-shell {
+    --ws-primary-bg: #fafafa;
+    --ws-primary-fg: #171717;
+    --ws-primary-hover: #e5e5e5;
+    --ws-nav-active-bg: #2a2a2a;
+    --ws-nav-active-fg: #fafafa;
+    --ws-doc-active-bg: rgba(244, 114, 182, 0.12);
+    --ws-doc-active-border: #f472b6;
+    --ws-doc-tree-bg: rgba(38, 38, 38, 0.65);
+    --ws-success: #4ade80;
+    --color-workspace-sidebar: #1a1a1a;
+
+    --background: #141414;
+    --foreground: #fafafa;
+    --surface: #1c1c1c;
+    --surface-secondary: #262626;
+    --surface-tertiary: #2e2e2e;
+    --overlay: #262626;
+    --overlay-foreground: #fafafa;
+    --muted: #a3a3a3;
+    --accent: #fafafa;
+    --accent-foreground: #171717;
+    --default: #3f3f3f;
+    --default-foreground: #fafafa;
+    --border: #3f3f3f;
+    --separator: #333333;
+    --focus: #fafafa;
+    --link: #fafafa;
+    --field-background: #262626;
+    --field-foreground: #fafafa;
+    --field-placeholder: #737373;
+    --field-border: #404040;
+    --segment: #262626;
+    --segment-foreground: #fafafa;
+    --danger: #ef4444;
+    --danger-foreground: #ffffff;
+  }
+}
