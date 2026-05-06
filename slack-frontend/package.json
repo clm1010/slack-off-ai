@@ -10,7 +10,7 @@
     "lint": "eslint --fix",
     "format": "prettier --write .",
     "lint-staged": "lint-staged",
-    "prepare": "husky",
+    "prepare": "node scripts/setup-git-hooks.mjs",
     "commit": "git-cz"
   },
   "config": {
@@ -24,11 +24,12 @@
   "dependencies": {
     "@heroui/react": "3.0.3",
     "@heroui/styles": "3.0.3",
+    "@teispace/next-themes": "0.4.1",
     "clsx": "2.1.1",
     "intl-messageformat": "10.7.16",
     "lucide-react": "^1.14.0",
     "next": "16.2.4",
-    "next-themes": "0.4.6",
+    "next-intl": "^4.11.0",
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "react-resizable-panels": "^4.10.0"
@@ -59,7 +60,6 @@
     "eslint-plugin-react-hooks": "7.0.1",
     "eslint-plugin-unused-imports": "4.1.4",
     "globals": "16.4.0",
-    "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "postcss": "8.5.6",
     "prettier": "3.8.3",

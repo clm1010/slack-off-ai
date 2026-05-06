@@ -3,7 +3,7 @@ import { DocumentEditorMock } from '@/components/workspace/pages/document-editor
 export default async function WorkDocumentPage({
   params
 }: {
-  params: Promise<{ documentId: string }>
+  params: Promise<{ locale: string; documentId: string }>
 }) {
   const { documentId } = await params
 

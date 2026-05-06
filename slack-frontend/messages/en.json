@@ -1,0 +1,157 @@
+{
+  "Metadata": {
+    "siteName": "Moyu AI",
+    "siteDescription": "Smart docs and AI writing workspace — ship faster, stress less."
+  },
+  "Marketing": {
+    "pages": {
+      "about": "About",
+      "docs": "Docs",
+      "blog": "Blog",
+      "pricing": "Pricing"
+    },
+    "home": {
+      "writingBlue": "AI writing",
+      "titleRest": "and docs workspace",
+      "cta": "Open workspace"
+    },
+    "footer": "Moyu AI · powered by HeroUI & Next.js"
+  },
+  "Site": {
+    "nav": {
+      "home": "Home",
+      "docs": "Docs",
+      "pricing": "Pricing",
+      "blog": "Blog",
+      "about": "About",
+      "workspace": "Workspace"
+    },
+    "navMenu": {
+      "profile": "Profile",
+      "dashboard": "Dashboard",
+      "projects": "Projects",
+      "team": "Team",
+      "calendar": "Calendar",
+      "settings": "Settings",
+      "help": "Help & Feedback",
+      "logout": "Logout"
+    }
+  },
+  "Navbar": {
+    "searchAria": "Search",
+    "searchPlaceholder": "Search…",
+    "toggleMenu": "Toggle menu",
+    "twitter": "Twitter",
+    "discord": "Discord",
+    "github": "GitHub",
+    "sponsor": "Sponsor"
+  },
+  "ThemeSwitch": {
+    "switchToDark": "Switch to dark mode",
+    "switchToLight": "Switch to light mode"
+  },
+  "LanguageSwitch": {
+    "ariaLabelZh": "Language: Chinese",
+    "ariaLabelEn": "Language: English",
+    "zh": "中文",
+    "en": "English"
+  },
+  "ErrorPage": {
+    "title": "Moyu AI · Something went wrong",
+    "description": "Please try again later or return home.",
+    "retry": "Retry"
+  },
+  "Workspace": {
+    "brandMoYu": "Moyu",
+    "sidebar": {
+      "userSettings": "User / Settings",
+      "home": "Home",
+      "search": "Search",
+      "favorites": "Favorites",
+      "share": "Shared",
+      "publish": "Published",
+      "myDocs": "My documents",
+      "newDoc": "New document",
+      "trash": "Trash",
+      "logout": "Sign out",
+      "logoutConfirm": "Sign out?",
+      "sortAria": "Sort documents",
+      "sortDefault": "Default order",
+      "sortTitle": "Title",
+      "sortCreated": "Created",
+      "sortUpdated": "Updated"
+    },
+    "header": {
+      "langZh": "cn 中文",
+      "langEn": "us English",
+      "themeAria": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "wordCount": "{count} words",
+      "aiWrite": "AI write",
+      "favorite": "Favorite",
+      "share": "Share",
+      "publish": "Publish",
+      "more": "More",
+      "searchDocsAria": "Search documents",
+      "searchDocsPlaceholder": "Search documents…"
+    },
+    "homeOverview": {
+      "title": "Home",
+      "newDoc": "+ New document",
+      "recent": "Recent",
+      "favorites": "Favorites",
+      "shared": "Shared",
+      "more": "More…",
+      "empty": "Nothing here yet"
+    },
+    "footer": {
+      "hint": "AI may produce mistakes — please verify. Your monthly AI token budget:",
+      "createdUpdated": "Created {created}  · Updated {updated}",
+      "timesPlaceholder": "Created ,  Updated ",
+      "getMore": "Get more"
+    },
+    "editor": {
+      "titlePlaceholder": "Title…",
+      "emptyBody": "No placeholder body for this document.",
+      "titleAria": "Document title",
+      "railToc": "Outline",
+      "railMessages": "Messages",
+      "railAi": "AI assistant",
+      "railHelp": "Help",
+      "aiPanelTitle": "AI write / chat",
+      "collapseAi": "Collapse AI panel",
+      "expandAi": "Expand AI panel",
+      "aiPlaceholder": "Ask AI, e.g. how to write a frontend resume?",
+      "quickContinue": "Continue",
+      "quickBrainstorm": "Brainstorm",
+      "quickOutline": "Outline",
+      "quickSummary": "Summarize"
+    },
+    "modals": {
+      "search": "Search",
+      "favorites": "Favorites",
+      "share": "Shared",
+      "trash": "Trash",
+      "publish": "Published",
+      "close": "Close",
+      "trashNotice": "Items stay in trash for 30 days, then are permanently deleted.",
+      "searchFieldAria": "Search",
+      "searchPlaceholder": "Keywords…",
+      "noResults": "No results",
+      "filterFavoritesAria": "Filter favorites",
+      "docTitlePlaceholder": "Document title…",
+      "colTitle": "Title",
+      "colUpdated": "Updated",
+      "colDeleted": "Deleted",
+      "colActions": "Actions",
+      "shareEmpty": "Nothing yet — open a doc and share it.",
+      "publishEmpty": "No published docs",
+      "trashSearchAria": "Search trash",
+      "restore": "Restore",
+      "delete": "Delete",
+      "emptyTrash": "Empty trash"
+    }
+  }
+}

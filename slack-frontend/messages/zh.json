@@ -1,0 +1,157 @@
+{
+  "Metadata": {
+    "siteName": "摸鱼AI",
+    "siteDescription": "智能文档与 AI 写作工作台，高效协作、安心摸鱼。"
+  },
+  "Marketing": {
+    "pages": {
+      "about": "关于",
+      "docs": "文档",
+      "blog": "博客",
+      "pricing": "定价"
+    },
+    "home": {
+      "writingBlue": "智能写作",
+      "titleRest": "与文档工作台",
+      "cta": "进入工作台"
+    },
+    "footer": "摸鱼AI · 由 HeroUI 与 Next.js 驱动"
+  },
+  "Site": {
+    "nav": {
+      "home": "首页",
+      "docs": "文档",
+      "pricing": "定价",
+      "blog": "博客",
+      "about": "关于",
+      "workspace": "工作台"
+    },
+    "navMenu": {
+      "profile": "个人资料",
+      "dashboard": "仪表盘",
+      "projects": "项目",
+      "team": "团队",
+      "calendar": "日历",
+      "settings": "设置",
+      "help": "帮助与反馈",
+      "logout": "退出登录"
+    }
+  },
+  "Navbar": {
+    "searchAria": "搜索",
+    "searchPlaceholder": "搜索…",
+    "toggleMenu": "展开或收起菜单",
+    "twitter": "Twitter",
+    "discord": "Discord",
+    "github": "GitHub",
+    "sponsor": "赞助"
+  },
+  "ThemeSwitch": {
+    "switchToDark": "切换到深色模式",
+    "switchToLight": "切换到浅色模式"
+  },
+  "LanguageSwitch": {
+    "ariaLabelZh": "语言：中文",
+    "ariaLabelEn": "Language: English",
+    "zh": "中文",
+    "en": "English"
+  },
+  "ErrorPage": {
+    "title": "摸鱼AI · 页面出错了",
+    "description": "请稍后再试，或返回首页。",
+    "retry": "重试"
+  },
+  "Workspace": {
+    "brandMoYu": "摸鱼",
+    "sidebar": {
+      "userSettings": "用户 / 设置",
+      "home": "我的首页",
+      "search": "搜索",
+      "favorites": "收藏夹",
+      "share": "我的分享",
+      "publish": "我的发布",
+      "myDocs": "我的文档",
+      "newDoc": "新建文档",
+      "trash": "回收站",
+      "logout": "退出",
+      "logoutConfirm": "确定退出登录？",
+      "sortAria": "文档排序",
+      "sortDefault": "默认排序",
+      "sortTitle": "文档标题",
+      "sortCreated": "创建时间",
+      "sortUpdated": "更新时间"
+    },
+    "header": {
+      "langZh": "cn 中文",
+      "langEn": "us English",
+      "themeAria": "主题",
+      "light": "明亮",
+      "dark": "黑暗",
+      "system": "系统",
+      "wordCount": "共 {count} 字",
+      "aiWrite": "AI 写作",
+      "favorite": "收藏",
+      "share": "分享",
+      "publish": "发布",
+      "more": "更多",
+      "searchDocsAria": "搜索文档",
+      "searchDocsPlaceholder": "搜索文档…"
+    },
+    "homeOverview": {
+      "title": "我的首页",
+      "newDoc": "+ 新建文档",
+      "recent": "最近文档",
+      "favorites": "收藏文档",
+      "shared": "分享文档",
+      "more": "更多…",
+      "empty": "未找到内容"
+    },
+    "footer": {
+      "hint": "AI 可能会生成错误信息，请自行检查判断。你本月 AI token limit 剩余",
+      "createdUpdated": "创建时间 {created}  更新时间 {updated}",
+      "timesPlaceholder": "创建时间 ,  更新时间",
+      "getMore": "点击获取更多"
+    },
+    "editor": {
+      "titlePlaceholder": "请输入标题…",
+      "emptyBody": "该文档暂无占位正文。",
+      "titleAria": "文档标题",
+      "railToc": "目录",
+      "railMessages": "消息",
+      "railAi": "AI 助手",
+      "railHelp": "帮助",
+      "aiPanelTitle": "AI 写作 / 聊天",
+      "collapseAi": "收起 AI 面板",
+      "expandAi": "展开 AI 面板",
+      "aiPlaceholder": "输入 AI 指令，如：如何写前端简历？",
+      "quickContinue": "续写",
+      "quickBrainstorm": "头脑风暴",
+      "quickOutline": "写大纲",
+      "quickSummary": "写总结"
+    },
+    "modals": {
+      "search": "搜索",
+      "favorites": "收藏夹",
+      "share": "我的分享",
+      "trash": "回收站",
+      "publish": "我的发布",
+      "close": "关闭",
+      "trashNotice": "注意，回收站的文档将保留 30 天，然后彻底删除",
+      "searchFieldAria": "搜索",
+      "searchPlaceholder": "输入关键字…",
+      "noResults": "暂无搜索结果",
+      "filterFavoritesAria": "筛选收藏",
+      "docTitlePlaceholder": "文档标题…",
+      "colTitle": "标题",
+      "colUpdated": "更新时间",
+      "colDeleted": "删除时间",
+      "colActions": "操作",
+      "shareEmpty": "未找到内容，打开一个文档并分享",
+      "publishEmpty": "未发布文档",
+      "trashSearchAria": "在回收站中搜索",
+      "restore": "恢复",
+      "delete": "删除",
+      "emptyTrash": "清空回收站"
+    }
+  }
+}

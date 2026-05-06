@@ -1,3 +1,5 @@
+import createNextIntlPlugin from 'next-intl/plugin'
+
 /** @type {import('next').NextConfig} */
 /**
  * Next 的 allowedDevOrigins 按「主机名」匹配（见报错里的 from "192.168.188.129"）。
@@ -30,4 +32,6 @@ const nextConfig = {
     allowedDevOriginsEnv?.length ? allowedDevOriginsEnv : ['192.168.1.70'],
 }
 
-export default nextConfig
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts')
+
+export default withNextIntl(nextConfig)

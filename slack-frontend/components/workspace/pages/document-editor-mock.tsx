@@ -2,29 +2,37 @@
 
 import { Button, cn, TextArea } from '@heroui/react'
 import { ChevronLeft, ChevronRight, HelpCircle, List, MessageCircle, Sparkles } from 'lucide-react'
+import { useLocale, useTranslations } from 'next-intl'
 import * as React from 'react'
 
 import { workspaceAiTextAreaClass } from '../workspace-styles'
 
 import { getMockDocById } from '@/lib/workspace-mock'
 
-const QUICK_ACTIONS = [
-  { id: 'continue', label: '续写' },
-  { id: 'brainstorm', label: '头脑风暴' },
-  { id: 'outline', label: '写大纲' },
-  { id: 'summary', label: '写总结' }
-] as const
-
 export function DocumentEditorMock({ documentId }: { documentId: string }) {
-  const doc = getMockDocById(documentId)
-  const [title, setTitle] = React.useState(doc?.title ?? '请输入标题…')
+  const locale = useLocale()
+  const t = useTranslations('Workspace.editor')
+  const doc = getMockDocById(documentId, locale)
+
+  const quickActions = React.useMemo(
+    () =>
+      [
+        { id: 'continue' as const, label: t('quickContinue') },
+        { id: 'brainstorm' as const, label: t('quickBrainstorm') },
+        { id: 'outline' as const, label: t('quickOutline') },
+        { id: 'summary' as const, label: t('quickSummary') }
+      ] as const,
+    [t]
+  )
+
+  const [title, setTitle] = React.useState(doc?.title ?? t('titlePlaceholder'))
   const [aiOpen, setAiOpen] = React.useState(true)
 
   React.useEffect(() => {
-    setTitle(doc?.title ?? '请输入标题…')
-  }, [doc?.title])
+    setTitle(doc?.title ?? t('titlePlaceholder'))
+  }, [doc?.title, t])
 
-  const body = doc?.mockBody ?? '该文档暂无占位正文。'
+  const body = doc?.mockBody ?? t('emptyBody')
 
   return (
     <div className='flex min-h-0 flex-1 bg-background'>
@@ -35,9 +43,9 @@ export function DocumentEditorMock({ documentId }: { documentId: string }) {
               ✦
             </span>
             <input
-              aria-label='文档标题'
+              aria-label={t('titleAria')}
               className='min-w-0 flex-1 border-none bg-transparent text-2xl font-semibold text-foreground outline-none placeholder:text-muted'
-              placeholder='请输入标题…'
+              placeholder={t('titlePlaceholder')}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -52,29 +60,33 @@ export function DocumentEditorMock({ documentId }: { documentId: string }) {
         </div>
 
         <div className='pointer-events-none absolute right-2 top-1/2 z-10 flex -translate-y-1/2 flex-col gap-3 pr-1'>
-          <RailBtn ariaLabel='目录' icon={<List className='size-5' />} onPress={() => {}} />
+          <RailBtn ariaLabel={t('railToc')} icon={<List className='size-5' />} onPress={() => {}} />
           <RailBtn
-            ariaLabel='消息'
+            ariaLabel={t('railMessages')}
             icon={<MessageCircle className='size-5' />}
             onPress={() => {}}
           />
           <RailBtn
             accent
-            ariaLabel='AI 助手'
+            ariaLabel={t('railAi')}
             icon={<Sparkles className='size-5' />}
             onPress={() => setAiOpen((v) => !v)}
           />
-          <RailBtn ariaLabel='帮助' icon={<HelpCircle className='size-5' />} onPress={() => {}} />
+          <RailBtn
+            ariaLabel={t('railHelp')}
+            icon={<HelpCircle className='size-5' />}
+            onPress={() => {}}
+          />
         </div>
       </div>
 
       {aiOpen ? (
         <aside className='flex w-[300px] shrink-0 flex-col border-l border-separator bg-surface shadow-[inset_1px_0_0_0_rgba(0,0,0,0.04)]'>
           <div className='flex items-center justify-between border-b border-separator px-3 py-2'>
-            <span className='text-sm font-medium text-foreground'>AI 写作 / 聊天</span>
+            <span className='text-sm font-medium text-foreground'>{t('aiPanelTitle')}</span>
             <Button
               isIconOnly
-              aria-label='收起 AI 面板'
+              aria-label={t('collapseAi')}
               size='sm'
               variant='tertiary'
               onPress={() => setAiOpen(false)}
@@ -88,10 +100,10 @@ export function DocumentEditorMock({ documentId }: { documentId: string }) {
             </div>
             <TextArea
               className={cn('min-h-[120px] w-full resize-none text-sm', workspaceAiTextAreaClass)}
-              placeholder='输入 AI 指令，如：如何写前端简历？'
+              placeholder={t('aiPlaceholder')}
             />
             <div className='flex flex-wrap gap-2'>
-              {QUICK_ACTIONS.map((a) => (
+              {quickActions.map((a) => (
                 <Button
                   key={a.id}
                   className='border border-separator bg-surface text-xs text-foreground hover:bg-surface-secondary'
@@ -109,7 +121,7 @@ export function DocumentEditorMock({ documentId }: { documentId: string }) {
         <div className='flex w-10 shrink-0 flex-col items-center border-l border-separator bg-surface py-3'>
           <Button
             isIconOnly
-            aria-label='展开 AI 面板'
+            aria-label={t('expandAi')}
             size='sm'
             variant='tertiary'
             onPress={() => setAiOpen(true)}

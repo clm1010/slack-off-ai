@@ -2,8 +2,9 @@
 
 import { FC } from 'react'
 import { Moon, Sun } from 'lucide-react'
-import { useTheme } from 'next-themes'
+import { useTheme } from '@teispace/next-themes'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 
 export interface ThemeSwitchProps {
   className?: string
@@ -11,6 +12,7 @@ export interface ThemeSwitchProps {
 
 export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
   const { setTheme, resolvedTheme } = useTheme()
+  const t = useTranslations('ThemeSwitch')
 
   const isLight = resolvedTheme === 'light'
 
@@ -20,13 +22,14 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
 
   return (
     <button
-      aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
+      aria-label={isLight ? t('switchToDark') : t('switchToLight')}
       className={clsx(
         'px-px transition-opacity hover:opacity-80 cursor-pointer',
         'inline-flex items-center justify-center',
         'w-auto h-auto bg-transparent rounded-lg text-muted',
         className
       )}
+      type='button'
       onClick={handleToggle}
     >
       {isLight ? (

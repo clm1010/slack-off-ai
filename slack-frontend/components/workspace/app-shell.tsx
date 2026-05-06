@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { usePathname } from 'next/navigation'
+import { useLocale } from 'next-intl'
 import { Group, Panel } from 'react-resizable-panels'
 
 import { WorkspaceModals } from './modals/workspace-modals'
@@ -12,12 +12,14 @@ import { WorkspaceSplitSeparator } from './workspace-split-separator'
 import { WorkspaceUIProvider } from './workspace-ui-context'
 
 import { estimateWordCount, getMockDocById } from '@/lib/workspace-mock'
+import { usePathname } from '@/i18n/navigation'
 
 export function WorkspaceAppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const locale = useLocale()
   const isDoc = Boolean(pathname?.startsWith('/work/'))
   const documentId = isDoc && pathname ? pathname.slice('/work/'.length) : null
-  const doc = documentId ? getMockDocById(documentId) : undefined
+  const doc = documentId ? getMockDocById(documentId, locale) : undefined
 
   const wordCount = React.useMemo(() => {
     if (!isDoc || !doc) return 0

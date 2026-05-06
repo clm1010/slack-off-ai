@@ -1,67 +1,24 @@
 export type SiteConfig = typeof siteConfig
 
+/** href 为无前缀路径名，由 next-intl Link 自动加 locale；文案键在 Site.nav / Site.navMenu */
 export const siteConfig = {
-  name: '摸鱼AI',
-  description: '智能文档与 AI 写作工作台，高效协作、安心摸鱼。',
   navItems: [
-    {
-      label: 'Home',
-      href: '/'
-    },
-    {
-      label: 'Docs',
-      href: '/docs'
-    },
-    {
-      label: 'Pricing',
-      href: '/pricing'
-    },
-    {
-      label: 'Blog',
-      href: '/blog'
-    },
-    {
-      label: 'About',
-      href: '/about'
-    },
-    {
-      label: '工作台',
-      href: '/home'
-    }
+    { navKey: 'home' as const, href: '/' },
+    { navKey: 'docs' as const, href: '/docs' },
+    { navKey: 'pricing' as const, href: '/pricing' },
+    { navKey: 'blog' as const, href: '/blog' },
+    { navKey: 'about' as const, href: '/about' },
+    { navKey: 'workspace' as const, href: '/home' }
   ],
   navMenuItems: [
-    {
-      label: 'Profile',
-      href: '/profile'
-    },
-    {
-      label: 'Dashboard',
-      href: '/dashboard'
-    },
-    {
-      label: 'Projects',
-      href: '/projects'
-    },
-    {
-      label: 'Team',
-      href: '/team'
-    },
-    {
-      label: 'Calendar',
-      href: '/calendar'
-    },
-    {
-      label: 'Settings',
-      href: '/settings'
-    },
-    {
-      label: 'Help & Feedback',
-      href: '/help-feedback'
-    },
-    {
-      label: 'Logout',
-      href: '/logout'
-    }
+    { menuKey: 'profile' as const, href: '/profile' },
+    { menuKey: 'dashboard' as const, href: '/dashboard' },
+    { menuKey: 'projects' as const, href: '/projects' },
+    { menuKey: 'team' as const, href: '/team' },
+    { menuKey: 'calendar' as const, href: '/calendar' },
+    { menuKey: 'settings' as const, href: '/settings' },
+    { menuKey: 'help' as const, href: '/help-feedback' },
+    { menuKey: 'logout' as const, href: '/logout' }
   ],
   links: {
     github: 'https://github.com/heroui-inc/heroui',

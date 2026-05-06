@@ -3,7 +3,8 @@
 import type { MockDoc } from '@/lib/workspace-mock'
 
 import { FileText, Star } from 'lucide-react'
-import Link from 'next/link'
+
+import { Link } from '@/i18n/navigation'
 
 export function WorkspaceDocumentCard({
   doc,

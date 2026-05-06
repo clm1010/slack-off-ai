@@ -8,28 +8,21 @@ import {
   LogOut,
   Plus,
   Search,
-  Send,
   Star,
   Trash2,
-  Users
+  Users,
+  ExternalLink
 } from 'lucide-react'
 import clsx from 'clsx'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import * as React from 'react'
 
 import { useWorkspaceUI } from './workspace-ui-context'
 
-import { MOCK_DOCS, isUntitledDoc } from '@/lib/workspace-mock'
+import { Link, usePathname } from '@/i18n/navigation'
+import { getMockDocs, isUntitledDoc } from '@/lib/workspace-mock'
 
 type DocSortKey = 'default' | 'title' | 'created' | 'updated'
-
-const DOC_SORT_OPTIONS: { id: DocSortKey; label: string }[] = [
-  { id: 'default', label: '默认排序' },
-  { id: 'title', label: '文档标题' },
-  { id: 'created', label: '创建时间' },
-  { id: 'updated', label: '更新时间' }
-]
 
 function isDocSortKey(v: string): v is DocSortKey {
   return v === 'default' || v === 'title' || v === 'created' || v === 'updated'
@@ -38,15 +31,19 @@ function isDocSortKey(v: string): v is DocSortKey {
 /** 排序：HeroUI Dropdown，菜单与触发按钮右对齐（placement: bottom end） */
 function WorkspaceDocSortDropdown({
   sortKey,
+  sortOptions,
   onSortKeyChange
 }: {
   sortKey: DocSortKey
+  sortOptions: { id: DocSortKey; label: string }[]
   onSortKeyChange: (k: DocSortKey) => void
 }) {
+  const t = useTranslations('Workspace.sidebar')
+
   return (
     <Dropdown.Root>
       <Dropdown.Trigger
-        aria-label='文档排序'
+        aria-label={t('sortAria')}
         className={cn(
           'flex size-8 shrink-0 items-center justify-center rounded-lg text-muted outline-none',
           'hover:bg-[var(--ws-nav-active-bg)]/80 hover:text-foreground',
@@ -72,7 +69,7 @@ function WorkspaceDocSortDropdown({
             if (typeof id === 'string' && isDocSortKey(id)) onSortKeyChange(id)
           }}
         >
-          {DOC_SORT_OPTIONS.map((opt) => (
+          {sortOptions.map((opt) => (
             <Dropdown.Item
               key={opt.id}
               className={cn(
@@ -94,19 +91,33 @@ function WorkspaceDocSortDropdown({
 
 export function WorkspaceSidebar() {
   const pathname = usePathname()
+  const locale = useLocale()
+  const t = useTranslations('Workspace.sidebar')
   const { openModal } = useWorkspaceUI()
   const [sortKey, setSortKey] = React.useState<DocSortKey>('default')
   const [docSectionOpen, setDocSectionOpen] = React.useState(true)
 
-  const sortedDocs = React.useMemo(() => {
-    const list = [...MOCK_DOCS]
+  const sortOptions = React.useMemo(
+    () =>
+      [
+        { id: 'default' as const, label: t('sortDefault') },
+        { id: 'title' as const, label: t('sortTitle') },
+        { id: 'created' as const, label: t('sortCreated') },
+        { id: 'updated' as const, label: t('sortUpdated') }
+      ] as const,
+    [t]
+  )
 
-    if (sortKey === 'title') list.sort((a, b) => a.title.localeCompare(b.title, 'zh'))
+  const sortedDocs = React.useMemo(() => {
+    const list = [...getMockDocs(locale)]
+    const collatorLocale = locale === 'en' ? 'en' : 'zh'
+
+    if (sortKey === 'title') list.sort((a, b) => a.title.localeCompare(b.title, collatorLocale))
     if (sortKey === 'created') list.sort((a, b) => a.createdAt.localeCompare(b.createdAt))
     if (sortKey === 'updated') list.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
 
     return list
-  }, [sortKey])
+  }, [locale, sortKey])
 
   const activeDocId = pathname?.startsWith('/work/') ? pathname.slice('/work/'.length) : null
 
@@ -127,7 +138,7 @@ export function WorkspaceSidebar() {
             type='button'
             onClick={() => {}}
           >
-            用户 / 设置
+            {t('userSettings')}
           </button>
         </div>
       </div>
@@ -137,7 +148,7 @@ export function WorkspaceSidebar() {
           active={pathname === '/home'}
           href='/home'
           icon={<Home className='size-4' />}
-          label='我的首页'
+          label={t('home')}
         />
 
         <button
@@ -146,7 +157,7 @@ export function WorkspaceSidebar() {
           onClick={() => openModal('search')}
         >
           <Search className='size-4 text-muted' />
-          搜索
+          {t('search')}
         </button>
 
         <button
@@ -155,7 +166,7 @@ export function WorkspaceSidebar() {
           onClick={() => openModal('favorites')}
         >
           <Star className='size-4 text-muted' />
-          收藏夹
+          {t('favorites')}
         </button>
 
         <button
@@ -164,7 +175,7 @@ export function WorkspaceSidebar() {
           onClick={() => openModal('share')}
         >
           <Users className='size-4 text-muted' />
-          我的分享
+          {t('share')}
         </button>
 
         <button
@@ -172,8 +183,8 @@ export function WorkspaceSidebar() {
           type='button'
           onClick={() => openModal('publish')}
         >
-          <Send className='size-4 text-muted' />
-          我的发布
+          <ExternalLink className='size-4 text-muted' />
+          {t('publish')}
         </button>
 
         <div
@@ -193,9 +204,13 @@ export function WorkspaceSidebar() {
                   docSectionOpen ? 'rotate-0' : '-rotate-90'
                 )}
               />
-              <span className='truncate'>我的文档</span>
+              <span className='truncate'>{t('myDocs')}</span>
             </button>
-            <WorkspaceDocSortDropdown sortKey={sortKey} onSortKeyChange={setSortKey} />
+            <WorkspaceDocSortDropdown
+              sortKey={sortKey}
+              sortOptions={[...sortOptions]}
+              onSortKeyChange={setSortKey}
+            />
           </div>
           {docSectionOpen ? (
             <div className='pb-2 pl-1'>
@@ -236,7 +251,7 @@ export function WorkspaceSidebar() {
           onClick={() => {}}
         >
           <Plus className='size-4 text-muted' />
-          新建文档
+          {t('newDoc')}
         </button>
       </nav>
 
@@ -247,19 +262,19 @@ export function WorkspaceSidebar() {
           onClick={() => openModal('trash')}
         >
           <Trash2 className='size-4 text-muted' />
-          回收站
+          {t('trash')}
         </button>
         <button
           className='flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-[var(--danger)] hover:bg-[var(--danger)]/10'
           type='button'
           onClick={() => {
-            if (typeof window !== 'undefined' && window.confirm('确定退出登录？')) {
+            if (typeof window !== 'undefined' && window.confirm(t('logoutConfirm'))) {
               /* 接入 Auth 后替换 */
             }
           }}
         >
           <LogOut className='size-4' />
-          退出
+          {t('logout')}
         </button>
       </div>
     </aside>
