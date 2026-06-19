@@ -21,6 +21,7 @@ export function WorkspaceDocumentCard({
     <Link
       className='flex h-full min-h-[104px] flex-col rounded-xl border border-separator bg-surface p-4 no-underline shadow-sm transition-shadow hover:shadow-md'
       href={`/work/${doc.id}`}
+      prefetch={false}
     >
       <div className='flex gap-2.5'>
         <span aria-hidden className='shrink-0 text-xl leading-none'>

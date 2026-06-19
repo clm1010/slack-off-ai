@@ -1,6 +1,6 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, useSyncExternalStore } from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from '@teispace/next-themes'
 import clsx from 'clsx'
@@ -10,11 +10,23 @@ export interface ThemeSwitchProps {
   className?: string
 }
 
+const emptySubscribe = () => () => {}
+
+/** hydration 安全的「已挂载」判定：SSR 与首次客户端渲染均为 false，避免主题图标 SSR/CSR 不一致 */
+function useMounted() {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+}
+
 export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
   const { setTheme, resolvedTheme } = useTheme()
   const t = useTranslations('ThemeSwitch')
 
-  const isLight = resolvedTheme === 'light'
+  const mounted = useMounted()
+  const isLight = mounted && resolvedTheme === 'light'
 
   const handleToggle = () => {
     setTheme(isLight ? 'dark' : 'light')

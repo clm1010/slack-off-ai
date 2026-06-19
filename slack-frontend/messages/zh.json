@@ -61,6 +61,11 @@
     "description": "请稍后再试，或返回首页。",
     "retry": "重试"
   },
+  "NotFound": {
+    "title": "找不到页面",
+    "description": "该链接可能已经失效，或地址输入有误。",
+    "homeLink": "返回首页"
+  },
   "Workspace": {
     "brandMoYu": "摸鱼",
     "sidebar": {
@@ -120,10 +125,16 @@
       "railMessages": "消息",
       "railAi": "AI 助手",
       "railHelp": "帮助",
-      "aiPanelTitle": "AI 写作 / 聊天",
+      "aiPanelTitle": "AI 写作/聊天",
       "collapseAi": "收起 AI 面板",
       "expandAi": "展开 AI 面板",
+      "clearAiChatAria": "清空对话",
+      "closeAiPanelAria": "关闭 AI 面板",
+      "aiPanelIntro": "使用 AI 智能写作/聊天",
       "aiPlaceholder": "输入 AI 指令，如：如何写前端简历？",
+      "aiQuickLinksAria": "AI 快捷操作",
+      "aiPanelFooterLead": "AI 可能会生成错误信息，请自行检查判断。 ",
+      "aiPanelFooterBudgetRich": "你本月 AI token limit 剩余 <tok></tok>，<lnk>点击获取更多</lnk>",
       "quickContinue": "续写",
       "quickBrainstorm": "头脑风暴",
       "quickOutline": "写大纲",

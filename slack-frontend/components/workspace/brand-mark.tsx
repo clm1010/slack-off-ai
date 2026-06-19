@@ -17,6 +17,7 @@ export function BrandMark({
     <Link
       className={`flex items-center gap-1.5 rounded no-underline outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] ${className}`}
       href={href}
+      prefetch={false}
     >
       <span className='text-lg font-semibold tracking-tight text-foreground'>{t('brandMoYu')}</span>
       <span className='rounded bg-[var(--ws-primary-bg)] px-1.5 py-0.5 text-xs font-bold tracking-wide text-[var(--ws-primary-fg)]'>

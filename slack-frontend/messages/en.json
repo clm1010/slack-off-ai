@@ -61,6 +61,11 @@
     "description": "Please try again later or return home.",
     "retry": "Retry"
   },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "This link may be broken, or the address has a typo.",
+    "homeLink": "Back to home"
+  },
   "Workspace": {
     "brandMoYu": "Moyu",
     "sidebar": {
@@ -120,10 +125,16 @@
       "railMessages": "Messages",
       "railAi": "AI assistant",
       "railHelp": "Help",
-      "aiPanelTitle": "AI write / chat",
+      "aiPanelTitle": "AI write/chat",
       "collapseAi": "Collapse AI panel",
       "expandAi": "Expand AI panel",
+      "clearAiChatAria": "Clear conversation",
+      "closeAiPanelAria": "Close AI panel",
+      "aiPanelIntro": "Use AI writing & chat.",
       "aiPlaceholder": "Ask AI, e.g. how to write a frontend resume?",
+      "aiQuickLinksAria": "AI quick actions",
+      "aiPanelFooterLead": "AI may produce mistakes — please verify. ",
+      "aiPanelFooterBudgetRich": "Your monthly AI token budget remaining <tok></tok>. <lnk>Get more</lnk>",
       "quickContinue": "Continue",
       "quickBrainstorm": "Brainstorm",
       "quickOutline": "Outline",

@@ -231,6 +231,7 @@ export function WorkspaceSidebar() {
                               : 'border-transparent text-foreground hover:bg-[var(--ws-nav-active-bg)]/50'
                         )}
                         href={`/work/${doc.id}`}
+                        prefetch={false}
                       >
                         <span aria-hidden className='shrink-0'>
                           {doc.emoji ?? '📄'}
@@ -301,6 +302,7 @@ function SidebarNavLink({
           : 'text-foreground hover:bg-[var(--ws-nav-active-bg)]/70'
       )}
       href={href}
+      prefetch={false}
     >
       <span className={active ? 'text-[var(--ws-nav-active-fg)]' : 'text-muted'}>{icon}</span>
       {label}

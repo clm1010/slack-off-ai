@@ -13,8 +13,8 @@ import {
 } from '@heroui/react'
 import { buttonVariants } from '@heroui/styles'
 import {
-  Bot,
   ChevronDown,
+  ExternalLink,
   Languages,
   Moon,
   MoreHorizontal,
@@ -30,10 +30,22 @@ import * as React from 'react'
 
 import { BrandMark } from './brand-mark'
 import { workspacePrimaryButtonClass, workspaceSearchInputClass } from './workspace-styles'
+import { useWorkspaceUI } from './workspace-ui-context'
 
 import { usePathname, useRouter } from '@/i18n/navigation'
 
 type HeaderVariant = 'home' | 'document'
+
+const emptySubscribe = () => () => {}
+
+/** hydration 安全的「已挂载」判定：SSR 返回 false，客户端返回 true，避免 effect 内 setState */
+function useMounted() {
+  return React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+}
 
 export function WorkspaceHeader({
   variant,
@@ -48,12 +60,9 @@ export function WorkspaceHeader({
   const pathname = usePathname()
   const router = useRouter()
   const { resolvedTheme, setTheme } = useTheme()
-  const [mounted, setMounted] = React.useState(false)
+  const { toggleAiPanel, aiPanelOpen } = useWorkspaceUI()
+  const mounted = useMounted()
   const t = useTranslations('Workspace.header')
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const themeIcon = !mounted ? (
     <Sun className='size-4' />
@@ -153,10 +162,16 @@ export function WorkspaceHeader({
         {variant === 'document' ? (
           <>
             <Button
-              className={cn(workspacePrimaryButtonClass, 'font-medium')}
+              aria-pressed={aiPanelOpen}
+              className={cn(
+                workspacePrimaryButtonClass,
+                'font-medium',
+                !aiPanelOpen &&
+                  '!bg-[var(--default)] !text-[var(--default-foreground)] hover:!opacity-95'
+              )}
               size='sm'
               variant='primary'
-              onPress={() => {}}
+              onPress={() => toggleAiPanel()}
             >
               <Sparkles className='size-4' />
               <span className='hidden sm:inline'>{t('aiWrite')}</span>
@@ -186,7 +201,7 @@ export function WorkspaceHeader({
               variant='tertiary'
               onPress={() => {}}
             >
-              <Bot className='size-4' />
+              <ExternalLink className='size-4' />
             </Button>
             <Button
               isIconOnly

@@ -1,7 +1,22 @@
+import type { Metadata } from 'next'
+
 import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/i18n/navigation'
 import { title, subtitle } from '@/components/primitives'
+import { buildLocaleAlternates } from '@/lib/metadata-alternates'
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+
+  return {
+    ...buildLocaleAlternates(locale, '/')
+  }
+}
 
 export default async function Home() {
   const t = await getTranslations('Marketing.home')
