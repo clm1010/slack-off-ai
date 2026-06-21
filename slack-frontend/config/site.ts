@@ -11,20 +11,11 @@ export const siteConfig = {
     { navKey: 'workspace' as const, href: '/home' }
   ],
   navMenuItems: [
-    { menuKey: 'profile' as const, href: '/profile' },
-    { menuKey: 'dashboard' as const, href: '/dashboard' },
-    { menuKey: 'projects' as const, href: '/projects' },
-    { menuKey: 'team' as const, href: '/team' },
-    { menuKey: 'calendar' as const, href: '/calendar' },
     { menuKey: 'settings' as const, href: '/settings' },
-    { menuKey: 'help' as const, href: '/help-feedback' },
-    { menuKey: 'logout' as const, href: '/logout' }
+    { menuKey: 'help' as const, href: '/help-feedback' }
   ],
   links: {
-    github: 'https://github.com/heroui-inc/heroui',
-    twitter: 'https://twitter.com/hero_ui',
-    docs: 'https://heroui.com',
-    discord: 'https://discord.gg/9b6yyZKmH4',
-    sponsor: 'https://patreon.com/jrgarciadev'
+    github: 'https://github.com/clm1010/slack-off-ai',
+    docs: '/docs'
   }
 }

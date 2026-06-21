@@ -12,7 +12,14 @@
     "format": "prettier --write .",
     "lint-staged": "lint-staged",
     "prepare": "node scripts/setup-git-hooks.mjs",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "db:up": "docker compose up -d postgres redis",
+    "db:down": "docker compose down",
+    "verify:phase1": "node scripts/verify-phase1.mjs",
+    "postinstall": "prisma generate"
   },
   "config": {
     "commitizen": {
@@ -23,13 +30,17 @@
     }
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.11.1",
     "@heroui/react": "3.2.1",
     "@heroui/styles": "3.2.1",
+    "@prisma/client": "^6.19.2",
     "@teispace/next-themes": "2.0.2",
     "clsx": "2.1.1",
     "lucide-react": "^1.21.0",
     "next": "16.2.9",
+    "next-auth": "5.0.0-beta.30",
     "next-intl": "^4.13.0",
+    "nodemailer": "^7.0.11",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "react-resizable-panels": "^4.11.2"
@@ -43,6 +54,7 @@
     "@next/eslint-plugin-next": "16.2.9",
     "@tailwindcss/postcss": "4.3.1",
     "@types/node": "^24",
+    "@types/nodemailer": "^6.4.24",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "@typescript-eslint/eslint-plugin": "8.61.1",
@@ -62,6 +74,7 @@
     "lint-staged": "^17.0.7",
     "postcss": "8.5.15",
     "prettier": "3.8.4",
+    "prisma": "^6.19.2",
     "tailwind-variants": "3.2.2",
     "tailwindcss": "4.3.1",
     "typescript": "6.0.3"

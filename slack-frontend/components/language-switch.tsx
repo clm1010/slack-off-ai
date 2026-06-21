@@ -13,21 +13,33 @@ import { Languages } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { usePathname, useRouter } from '@/i18n/navigation'
+import { useMounted } from '@/lib/use-mounted'
+
+const triggerClassName = cn(
+  buttonVariants({ isIconOnly: true, size: 'sm', variant: 'tertiary' }),
+  'inline-flex items-center justify-center text-muted'
+)
 
 export function LanguageSwitch() {
   const locale = useLocale()
   const pathname = usePathname()
   const router = useRouter()
   const t = useTranslations('LanguageSwitch')
+  const mounted = useMounted()
+
+  if (!mounted) {
+    return (
+      <span aria-hidden className={triggerClassName}>
+        <Languages className='size-[22px]' strokeWidth={2} />
+      </span>
+    )
+  }
 
   return (
     <Dropdown>
       <DropdownTrigger
         aria-label={locale === 'zh' ? t('ariaLabelZh') : t('ariaLabelEn')}
-        className={cn(
-          buttonVariants({ isIconOnly: true, size: 'sm', variant: 'tertiary' }),
-          'inline-flex items-center justify-center text-muted'
-        )}
+        className={triggerClassName}
       >
         <Languages className='size-[22px]' strokeWidth={2} />
       </DropdownTrigger>

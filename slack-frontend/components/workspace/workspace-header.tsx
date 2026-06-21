@@ -7,9 +7,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownPopover,
-  DropdownTrigger,
-  InputGroup,
-  TextField
+  DropdownTrigger
 } from '@heroui/react'
 import { buttonVariants } from '@heroui/styles'
 import {
@@ -18,7 +16,6 @@ import {
   Languages,
   Moon,
   MoreHorizontal,
-  Search,
   Share2,
   Sparkles,
   Star,
@@ -29,7 +26,8 @@ import { useLocale, useTranslations } from 'next-intl'
 import * as React from 'react'
 
 import { BrandMark } from './brand-mark'
-import { workspacePrimaryButtonClass, workspaceSearchInputClass } from './workspace-styles'
+import { WorkspaceDocSearchField } from './workspace-doc-search-field'
+import { workspacePrimaryButtonClass } from './workspace-styles'
 import { useWorkspaceUI } from './workspace-ui-context'
 
 import { usePathname, useRouter } from '@/i18n/navigation'
@@ -225,16 +223,11 @@ export function WorkspaceHomeSearchField() {
   const t = useTranslations('Workspace.header')
 
   return (
-    <TextField aria-label={t('searchDocsAria')} className='max-w-xl flex-1' variant='secondary'>
-      <InputGroup>
-        <InputGroup.Prefix>
-          <Search aria-hidden className='size-4 shrink-0 text-muted' />
-        </InputGroup.Prefix>
-        <InputGroup.Input
-          className={cn('h-11 pl-2', workspaceSearchInputClass)}
-          placeholder={t('searchDocsPlaceholder')}
-        />
-      </InputGroup>
-    </TextField>
+    <WorkspaceDocSearchField
+      aria-label={t('searchDocsAria')}
+      className='max-w-xl flex-1'
+      name='home-doc-search'
+      placeholder={t('searchDocsPlaceholder')}
+    />
   )
 }

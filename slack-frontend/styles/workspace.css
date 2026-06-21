@@ -39,12 +39,17 @@
     --field-background: #ffffff;
     --field-foreground: #171717;
     --field-placeholder: #a3a3a3;
-    --field-border: #e5e5e5;
+    --field-border: #e4e4e7;
     --field-border-width: 1px;
     --segment: #ffffff;
     --segment-foreground: #171717;
     --danger: #dc2626;
     --danger-foreground: #ffffff;
+  }
+
+  .workspace-shell
+    :where(button:not(:disabled), a[href], [role='button']:not([aria-disabled='true'])) {
+    cursor: pointer;
   }
 
   .dark .workspace-shell {

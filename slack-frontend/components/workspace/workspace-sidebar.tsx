@@ -15,12 +15,15 @@ import {
 } from 'lucide-react'
 import clsx from 'clsx'
 import { useLocale, useTranslations } from 'next-intl'
+import { signOut, useSession } from 'next-auth/react'
 import * as React from 'react'
 
 import { useWorkspaceUI } from './workspace-ui-context'
+import { workspaceSidebarNavButtonClass } from './workspace-styles'
+import { UserAvatar } from './user-avatar'
 
 import { Link, usePathname } from '@/i18n/navigation'
-import { getMockDocs, isUntitledDoc } from '@/lib/workspace-mock'
+import { documentService } from '@/lib/services'
 
 type DocSortKey = 'default' | 'title' | 'created' | 'updated'
 
@@ -45,7 +48,7 @@ function WorkspaceDocSortDropdown({
       <Dropdown.Trigger
         aria-label={t('sortAria')}
         className={cn(
-          'flex size-8 shrink-0 items-center justify-center rounded-lg text-muted outline-none',
+          'flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-muted outline-none',
           'hover:bg-[var(--ws-nav-active-bg)]/80 hover:text-foreground',
           'data-[pressed]:bg-[var(--ws-nav-active-bg)]',
           'data-[focus-visible]:ring-2 data-[focus-visible]:ring-focus/30 data-[focus-visible]:ring-offset-2 data-[focus-visible]:ring-offset-[var(--color-workspace-sidebar)]'
@@ -93,6 +96,7 @@ export function WorkspaceSidebar() {
   const pathname = usePathname()
   const locale = useLocale()
   const t = useTranslations('Workspace.sidebar')
+  const { data: session } = useSession()
   const { openModal } = useWorkspaceUI()
   const [sortKey, setSortKey] = React.useState<DocSortKey>('default')
   const [docSectionOpen, setDocSectionOpen] = React.useState(true)
@@ -109,7 +113,7 @@ export function WorkspaceSidebar() {
   )
 
   const sortedDocs = React.useMemo(() => {
-    const list = [...getMockDocs(locale)]
+    const list = [...documentService.list(locale)]
     const collatorLocale = locale === 'en' ? 'en' : 'zh'
 
     if (sortKey === 'title') list.sort((a, b) => a.title.localeCompare(b.title, collatorLocale))
@@ -128,19 +132,15 @@ export function WorkspaceSidebar() {
         'bg-[var(--color-workspace-sidebar)]'
       )}
     >
-      <div className='flex items-center gap-2 border-b border-separator px-3 py-3'>
-        <span aria-hidden className='flex size-9 shrink-0 items-center justify-center text-lg'>
-          🙂
-        </span>
-        <div className='min-w-0 flex-1'>
-          <button
-            className='w-full truncate text-left text-sm font-medium text-foreground hover:underline'
-            type='button'
-            onClick={() => {}}
-          >
-            {t('userSettings')}
-          </button>
-        </div>
+      <div className='flex items-center gap-2.5 border-b border-separator px-3 py-3'>
+        <UserAvatar className='size-9' image={session?.user?.image} name={session?.user?.name} />
+        <button
+          className='min-w-0 flex-1 cursor-pointer truncate text-left text-sm font-medium leading-none text-foreground hover:underline'
+          type='button'
+          onClick={() => openModal('profile')}
+        >
+          {session?.user?.name ?? t('userSettings')}
+        </button>
       </div>
 
       <nav className='flex flex-1 flex-col gap-0.5 overflow-y-auto px-2 py-2'>
@@ -152,7 +152,7 @@ export function WorkspaceSidebar() {
         />
 
         <button
-          className='flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-foreground hover:bg-[var(--ws-nav-active-bg)]/70'
+          className={workspaceSidebarNavButtonClass}
           type='button'
           onClick={() => openModal('search')}
         >
@@ -161,7 +161,7 @@ export function WorkspaceSidebar() {
         </button>
 
         <button
-          className='flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-foreground hover:bg-[var(--ws-nav-active-bg)]/70'
+          className={workspaceSidebarNavButtonClass}
           type='button'
           onClick={() => openModal('favorites')}
         >
@@ -170,7 +170,7 @@ export function WorkspaceSidebar() {
         </button>
 
         <button
-          className='flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-foreground hover:bg-[var(--ws-nav-active-bg)]/70'
+          className={workspaceSidebarNavButtonClass}
           type='button'
           onClick={() => openModal('share')}
         >
@@ -179,7 +179,7 @@ export function WorkspaceSidebar() {
         </button>
 
         <button
-          className='flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-foreground hover:bg-[var(--ws-nav-active-bg)]/70'
+          className={workspaceSidebarNavButtonClass}
           type='button'
           onClick={() => openModal('publish')}
         >
@@ -217,13 +217,13 @@ export function WorkspaceSidebar() {
               <ul className='flex max-h-[280px] flex-col gap-0.5 overflow-y-auto'>
                 {sortedDocs.map((doc) => {
                   const active = activeDocId === doc.id
-                  const untitled = isUntitledDoc(doc)
+                  const untitled = documentService.isUntitled(doc)
 
                   return (
                     <li key={doc.id}>
                       <Link
                         className={clsx(
-                          'flex items-center gap-2 rounded-md border-l-[3px] py-1.5 pl-1.5 pr-2 text-sm no-underline',
+                          'flex cursor-pointer items-center gap-2 rounded-md border-l-[3px] py-1.5 pl-1.5 pr-2 text-sm no-underline',
                           active && untitled
                             ? 'border-[var(--ws-doc-active-border)] bg-[var(--ws-doc-active-bg)] text-foreground'
                             : active
@@ -246,11 +246,7 @@ export function WorkspaceSidebar() {
           ) : null}
         </div>
 
-        <button
-          className='flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-foreground hover:bg-[var(--ws-nav-active-bg)]/70'
-          type='button'
-          onClick={() => {}}
-        >
+        <button className={workspaceSidebarNavButtonClass} type='button' onClick={() => {}}>
           <Plus className='size-4 text-muted' />
           {t('newDoc')}
         </button>
@@ -258,7 +254,7 @@ export function WorkspaceSidebar() {
 
       <div className='mt-auto flex flex-col gap-0.5 border-t border-separator p-2'>
         <button
-          className='flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-foreground hover:bg-[var(--ws-nav-active-bg)]/70'
+          className={workspaceSidebarNavButtonClass}
           type='button'
           onClick={() => openModal('trash')}
         >
@@ -266,11 +262,14 @@ export function WorkspaceSidebar() {
           {t('trash')}
         </button>
         <button
-          className='flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm text-[var(--danger)] hover:bg-[var(--danger)]/10'
+          className={cn(
+            workspaceSidebarNavButtonClass,
+            'text-[var(--danger)] hover:bg-[var(--danger)]/10'
+          )}
           type='button'
           onClick={() => {
             if (typeof window !== 'undefined' && window.confirm(t('logoutConfirm'))) {
-              /* 接入 Auth 后替换 */
+              void signOut({ callbackUrl: `/${locale}/signin` })
             }
           }}
         >
@@ -296,7 +295,7 @@ function SidebarNavLink({
   return (
     <Link
       className={clsx(
-        'flex items-center gap-2 rounded-lg px-2 py-2 text-sm no-underline',
+        'flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-sm no-underline',
         active
           ? 'bg-[var(--ws-nav-active-bg)] font-medium text-[var(--ws-nav-active-fg)]'
           : 'text-foreground hover:bg-[var(--ws-nav-active-bg)]/70'

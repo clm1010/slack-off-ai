@@ -1,0 +1,353 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ===== 用户与认证（Auth.js）=====
+model User {
+  id            String    @id @default(cuid())
+  email         String?   @unique
+  emailVerified DateTime?
+  name          String?
+  image         String?
+  locale        String    @default("zh")
+
+  planType     String @default("free")
+  aiTokenUsed  Int    @default(0)
+  aiTokenReset DateTime @default(now())
+
+  storageUsed BigInt @default(0)
+  notifEmail  Boolean @default(true)
+  notifInApp  Boolean @default(true)
+  status      String  @default("active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  workspaces    Workspace[]        @relation("WorkspaceOwner")
+  documents     Document[]
+  favorites     Favorite[]
+  chatSessions  ChatSession[]
+  aiUsageLogs   AIUsageLog[]
+  uploadedFiles UploadedFile[]
+  templates     Template[]
+  comments      Comment[]
+  mentionsTo    Mention[]          @relation("MentionedUser")
+  mentionsBy    Mention[]          @relation("MentionerUser")
+  notifications Notification[]
+  reactions     DocumentReaction[]
+  shareTokens   DocumentShareToken[]
+
+  @@index([email])
+  @@index([status])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ===== 工作空间 =====
+model Workspace {
+  id         String   @id @default(cuid())
+  name       String
+  slug       String   @unique
+  icon       String?
+  ownerId    String
+  isPersonal Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  owner     User       @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  documents Document[]
+
+  @@index([ownerId])
+}
+
+// ===== 文档 =====
+model Document {
+  id              String  @id @default(cuid())
+  title           String  @default("Untitled")
+  contentJson     Json?
+  contentHtml     String? @db.Text
+  contentText     String? @db.Text
+  icon            String?
+  coverImage      String?
+  originalDocxKey String?
+  parentId        String?
+  workspaceId     String
+  creatorId       String
+
+  isPublished  Boolean   @default(false)
+  isDeleted    Boolean   @default(false)
+  deletedAt    DateTime?
+  sortOrder    Int       @default(0)
+  childrenSort String    @default("default")
+  wordCount    Int       @default(0)
+  readingTime  Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  parent    Document?  @relation("DocTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children  Document[] @relation("DocTree")
+  workspace Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  creator   User       @relation(fields: [creatorId], references: [id])
+
+  versions      DocumentVersion[]
+  favorites     Favorite[]
+  comments      Comment[]
+  reactions     DocumentReaction[]
+  shareTokens   DocumentShareToken[]
+  notifications Notification[] @relation("NotificationDocument")
+
+  @@index([workspaceId, isDeleted])
+  @@index([parentId])
+  @@index([creatorId, isDeleted])
+  @@index([workspaceId, parentId, sortOrder])
+}
+
+model DocumentVersion {
+  id          String   @id @default(cuid())
+  documentId  String
+  title       String
+  contentJson Json?
+  source      String   @default("auto")
+  createdBy   String
+  createdAt   DateTime @default(now())
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@index([documentId, createdAt])
+}
+
+model Favorite {
+  id         String   @id @default(cuid())
+  userId     String
+  documentId String
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, documentId])
+  @@index([userId])
+}
+
+model DocumentShareToken {
+  id           String    @id @default(cuid())
+  documentId   String
+  token        String    @unique
+  kind         String    @default("share")
+  permission   String    @default("view")
+  password     String?
+  expiresAt    DateTime?
+  embedAllowed Boolean   @default(false)
+  visits       Int       @default(0)
+  createdById  String
+  createdAt    DateTime  @default(now())
+  revokedAt    DateTime?
+
+  document  Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  createdBy User     @relation(fields: [createdById], references: [id])
+
+  @@index([documentId, kind])
+  @@index([token, revokedAt])
+}
+
+model DocumentReaction {
+  id         String   @id @default(cuid())
+  documentId String
+  userId     String
+  type       String
+  createdAt  DateTime @default(now())
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, userId, type])
+  @@index([documentId, type])
+}
+
+model Comment {
+  id         String    @id @default(cuid())
+  documentId String
+  userId     String
+  parentId   String?
+  anchorId   String
+  body       String    @db.Text
+  bodyText   String    @db.Text
+  resolvedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+
+  document Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent   Comment?  @relation("CommentReply", fields: [parentId], references: [id])
+  replies  Comment[] @relation("CommentReply")
+  mentions Mention[]
+
+  @@index([documentId, anchorId])
+  @@index([documentId, resolvedAt])
+}
+
+model Mention {
+  id              String   @id @default(cuid())
+  commentId       String?
+  documentId      String
+  mentionerId     String
+  mentionedUserId String
+  createdAt       DateTime @default(now())
+
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  mentioner User     @relation("MentionerUser", fields: [mentionerId], references: [id])
+  mentioned User     @relation("MentionedUser", fields: [mentionedUserId], references: [id])
+
+  @@index([mentionedUserId, createdAt])
+}
+
+model Notification {
+  id         String    @id @default(cuid())
+  userId     String
+  type       String
+  title      String
+  body       String    @db.Text
+  link       String?
+  documentId String?
+  meta       Json?
+  readAt     DateTime?
+  emailedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  document Document? @relation("NotificationDocument", fields: [documentId], references: [id], onDelete: SetNull)
+
+  @@index([userId, readAt, createdAt])
+}
+
+model Template {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  contentJson Json?
+  category    String?
+  coverImage  String?
+  icon        String?
+  isPublic    Boolean  @default(false)
+  isOfficial  Boolean  @default(false)
+  useCount    Int      @default(0)
+  creatorId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  creator User @relation(fields: [creatorId], references: [id])
+
+  @@index([category, isPublic])
+  @@index([isOfficial, useCount])
+}
+
+model ChatSession {
+  id         String   @id @default(cuid())
+  title      String?
+  userId     String
+  documentId String?
+  model      String   @default("qwen-plus")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages ChatMessage[]
+
+  @@index([userId, updatedAt])
+}
+
+model ChatMessage {
+  id           String   @id @default(cuid())
+  sessionId    String
+  role         String
+  content      String   @db.Text
+  inputTokens  Int?
+  outputTokens Int?
+  model        String?
+  createdAt    DateTime @default(now())
+
+  session ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
+}
+
+model AIUsageLog {
+  id           String   @id @default(cuid())
+  userId       String
+  action       String
+  provider     String
+  model        String
+  inputTokens  Int      @default(0)
+  outputTokens Int      @default(0)
+  durationMs   Int?
+  status       String   @default("success")
+  documentId   String?
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model UploadedFile {
+  id         String   @id @default(cuid())
+  userId     String
+  documentId String?
+  filename   String
+  mimeType   String
+  size       Int
+  ossKey     String   @unique
+  url        String
+  category   String
+  width      Int?
+  height     Int?
+  createdAt  DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([documentId])
+}

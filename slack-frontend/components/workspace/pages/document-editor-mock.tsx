@@ -19,7 +19,7 @@ import * as React from 'react'
 import { useWorkspaceUI } from '../workspace-ui-context'
 import { workspaceAiTextAreaClass } from '../workspace-styles'
 
-import { getMockDocById } from '@/lib/workspace-mock'
+import { documentService } from '@/lib/services'
 
 /** 与划水工作台示意一致：底部 token 展示（mock） */
 const MOCK_AI_TOKEN_BUDGET = 100000
@@ -27,7 +27,7 @@ const MOCK_AI_TOKEN_BUDGET = 100000
 export function DocumentEditorMock({ documentId }: { documentId: string }) {
   const locale = useLocale()
   const t = useTranslations('Workspace.editor')
-  const doc = getMockDocById(documentId, locale)
+  const doc = documentService.getById(documentId, locale)
   const { aiPanelOpen, setAiPanelOpen, toggleAiPanel } = useWorkspaceUI()
 
   const quickActions = React.useMemo(

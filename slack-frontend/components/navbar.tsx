@@ -1,30 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Button, Kbd, Link, TextField, InputGroup } from '@heroui/react'
-import { Bird, FolderGit2, Heart, Menu, MessagesSquare, Search, X } from 'lucide-react'
+import { Kbd, Link, TextField, InputGroup } from '@heroui/react'
+import { FolderGit2, Menu, Search, X } from 'lucide-react'
 import clsx from 'clsx'
 
 import { LanguageSwitch } from '@/components/language-switch'
 import { ThemeSwitch } from '@/components/theme-switch'
+import { BrandMark } from '@/components/workspace/brand-mark'
 import { siteConfig } from '@/config/site'
 import { Link as IntlLink, usePathname } from '@/i18n/navigation'
-
-function NavbarBrandMark() {
-  return (
-    <Image
-      aria-hidden
-      priority
-      alt=''
-      className='size-9 shrink-0 rounded-md object-cover ring-1 ring-separator/30'
-      height={36}
-      src='/moyu-mark.jpg'
-      width={36}
-    />
-  )
-}
 
 export const Navbar = () => {
   const pathname = usePathname()
@@ -32,16 +18,12 @@ export const Navbar = () => {
   const tNav = useTranslations('Navbar')
   const tSiteNav = useTranslations('Site.nav')
   const tSiteMenu = useTranslations('Site.navMenu')
-  const tMeta = useTranslations('Metadata')
 
   if (pathname === '/') {
     return (
       <nav className='sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg'>
         <header className='mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-6'>
-          <IntlLink className='flex items-center gap-1' href='/'>
-            <NavbarBrandMark />
-            <p className='font-bold text-inherit'>{tMeta('siteName')}</p>
-          </IntlLink>
+          <BrandMark href='/' />
           <div className='flex items-center gap-1'>
             <ThemeSwitch />
             <LanguageSwitch />
@@ -76,10 +58,7 @@ export const Navbar = () => {
     <nav className='sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg'>
       <header className='mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-6'>
         <div className='flex items-center gap-4'>
-          <IntlLink className='flex items-center gap-1' href='/'>
-            <NavbarBrandMark />
-            <p className='font-bold text-inherit'>{tMeta('siteName')}</p>
-          </IntlLink>
+          <BrandMark href='/' />
           <ul className='ml-2 hidden gap-4 lg:flex'>
             {siteConfig.navItems.map((item) => (
               <li key={item.href}>
@@ -99,22 +78,6 @@ export const Navbar = () => {
 
         <div className='hidden items-center gap-2 sm:flex'>
           <Link
-            aria-label={tNav('twitter')}
-            href={siteConfig.links.twitter}
-            rel='noopener noreferrer'
-            target='_blank'
-          >
-            <Bird className='text-muted' size={24} strokeWidth={2} />
-          </Link>
-          <Link
-            aria-label={tNav('discord')}
-            href={siteConfig.links.discord}
-            rel='noopener noreferrer'
-            target='_blank'
-          >
-            <MessagesSquare className='text-muted' size={24} strokeWidth={2} />
-          </Link>
-          <Link
             aria-label={tNav('github')}
             href={siteConfig.links.github}
             rel='noopener noreferrer'
@@ -125,22 +88,6 @@ export const Navbar = () => {
           <ThemeSwitch />
           <LanguageSwitch />
           <div className='hidden lg:flex'>{searchInput}</div>
-          <div className='hidden md:flex'>
-            <Button
-              className='text-sm font-normal'
-              variant='tertiary'
-              onPress={() => window.open(siteConfig.links.sponsor, '_blank')}
-            >
-              <Heart
-                aria-hidden
-                className='text-danger'
-                fill='currentColor'
-                size={18}
-                strokeWidth={2}
-              />
-              {tNav('sponsor')}
-            </Button>
-          </div>
         </div>
 
         <div className='flex items-center gap-2 sm:hidden'>
@@ -174,17 +121,10 @@ export const Navbar = () => {
         <div className='border-t border-separator sm:hidden'>
           <div className='p-4'>{searchInput}</div>
           <ul className='flex flex-col gap-2 px-4 pb-4'>
-            {siteConfig.navMenuItems.map((item, index) => (
-              <li key={`${item.menuKey}-${index}`}>
+            {siteConfig.navMenuItems.map((item) => (
+              <li key={item.menuKey}>
                 <IntlLink
-                  className={clsx(
-                    'block py-2 text-lg no-underline',
-                    index === 2
-                      ? 'text-accent'
-                      : index === siteConfig.navMenuItems.length - 1
-                        ? 'text-danger'
-                        : 'text-foreground'
-                  )}
+                  className='block py-2 text-lg text-foreground no-underline hover:text-accent'
                   href={item.href}
                 >
                   {tSiteMenu(item.menuKey)}

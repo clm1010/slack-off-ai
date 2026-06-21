@@ -11,7 +11,7 @@ import { WorkspaceSidebar } from './workspace-sidebar'
 import { WorkspaceSplitSeparator } from './workspace-split-separator'
 import { WorkspaceUIProvider } from './workspace-ui-context'
 
-import { estimateWordCount, getMockDocById } from '@/lib/workspace-mock'
+import { documentService } from '@/lib/services'
 import { usePathname } from '@/i18n/navigation'
 
 export function WorkspaceAppShell({ children }: { children: React.ReactNode }) {
@@ -19,13 +19,13 @@ export function WorkspaceAppShell({ children }: { children: React.ReactNode }) {
   const locale = useLocale()
   const isDoc = Boolean(pathname?.startsWith('/work/'))
   const documentId = isDoc && pathname ? pathname.slice('/work/'.length) : null
-  const doc = documentId ? getMockDocById(documentId, locale) : undefined
+  const doc = documentId ? documentService.getById(documentId, locale) : undefined
 
   const wordCount = React.useMemo(() => {
     if (!isDoc || !doc) return 0
     const text = `${doc.title}\n${doc.mockBody ?? ''}`
 
-    return estimateWordCount(text)
+    return documentService.estimateWordCount(text)
   }, [doc, isDoc])
 
   return (

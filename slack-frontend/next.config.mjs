@@ -1,4 +1,9 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import createNextIntlPlugin from 'next-intl/plugin'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 /** @type {import('next').NextConfig} */
 /**
@@ -10,12 +15,15 @@ function normalizeAllowedDevOrigin(entry) {
   if (!s) return null
   if (s.startsWith('*.')) return s
   try {
-    const withScheme = /^[a-zA-Z][a-zA-Z\d+.-]*:\/\//i.test(s)
-      ? s
-      : `http://${s}`
+    const withScheme = /^[a-zA-Z][a-zA-Z\d+.-]*:\/\//i.test(s) ? s : `http://${s}`
     return new URL(withScheme).hostname
   } catch {
-    return s.replace(/^https?:\/\//i, '').split('/')[0]?.split(':')[0] || null
+    return (
+      s
+        .replace(/^https?:\/\//i, '')
+        .split('/')[0]
+        ?.split(':')[0] || null
+    )
   }
 }
 
@@ -28,8 +36,10 @@ const allowedDevOriginsEnv = rawList?.length
   : null
 
 const nextConfig = {
-  allowedDevOrigins:
-    allowedDevOriginsEnv?.length ? allowedDevOriginsEnv : ['192.168.1.70'],
+  allowedDevOrigins: allowedDevOriginsEnv?.length ? allowedDevOriginsEnv : ['192.168.1.70'],
+  turbopack: {
+    root: __dirname
+  }
 }
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts')

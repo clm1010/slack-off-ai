@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl'
 
 import { Link, usePathname } from '@/i18n/navigation'
-import { getMockDocById } from '@/lib/workspace-mock'
+import { documentService } from '@/lib/services'
 
 export function WorkspaceFooter() {
   const pathname = usePathname()
@@ -11,7 +11,7 @@ export function WorkspaceFooter() {
   const t = useTranslations('Workspace.footer')
   const isDoc = pathname?.startsWith('/work/')
   const id = isDoc && pathname ? pathname.slice('/work/'.length) : null
-  const doc = id ? getMockDocById(id, locale) : undefined
+  const doc = id ? documentService.getById(id, locale) : undefined
 
   const left =
     doc != null

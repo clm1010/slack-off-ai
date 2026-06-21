@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-type ModalKey = 'search' | 'favorites' | 'share' | 'trash' | 'publish'
+type ModalKey = 'search' | 'favorites' | 'share' | 'trash' | 'publish' | 'profile'
 
 export type WorkspaceUIContextValue = {
   activeModal: ModalKey | null

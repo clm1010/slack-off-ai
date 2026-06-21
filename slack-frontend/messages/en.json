@@ -27,14 +27,8 @@
       "workspace": "Workspace"
     },
     "navMenu": {
-      "profile": "Profile",
-      "dashboard": "Dashboard",
-      "projects": "Projects",
-      "team": "Team",
-      "calendar": "Calendar",
       "settings": "Settings",
-      "help": "Help & Feedback",
-      "logout": "Logout"
+      "help": "Help & Feedback"
     }
   },
   "Navbar": {
@@ -65,6 +59,23 @@
     "title": "Page not found",
     "description": "This link may be broken, or the address has a typo.",
     "homeLink": "Back to home"
+  },
+  "Auth": {
+    "title": "Welcome back",
+    "subtitle": "Sign in with GitHub or email",
+    "github": "Continue with Github",
+    "orContinueWith": "OR CONTINUE WITH",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "emailSubmit": "Continue with Email",
+    "emailSentTitle": "Check your email",
+    "emailSentSubtitle": "A sign-in link has been sent to your inbox",
+    "emailSent": "Sign-in link sent to {email}. Check your inbox.",
+    "emailError": "Could not send sign-in link. Please try again.",
+    "githubError": "GitHub sign-in failed. Try again or use email.",
+    "githubNotConfigured": "GitHub sign-in is not configured (set GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET in .env.local).",
+    "subtitleEmailOnly": "Sign in with email",
+    "google": "Continue with Google"
   },
   "Workspace": {
     "brandMoYu": "Moyu",
@@ -146,6 +157,7 @@
       "share": "Shared",
       "trash": "Trash",
       "publish": "Published",
+      "open": "Open dialog",
       "close": "Close",
       "trashNotice": "Items stay in trash for 30 days, then are permanently deleted.",
       "searchFieldAria": "Search",
@@ -162,7 +174,20 @@
       "trashSearchAria": "Search trash",
       "restore": "Restore",
       "delete": "Delete",
-      "emptyTrash": "Empty trash"
+      "emptyTrash": "Empty trash",
+      "profileTitle": "Edit profile"
+    },
+    "profile": {
+      "title": "Edit profile",
+      "email": "Email",
+      "name": "Name",
+      "avatar": "Avatar",
+      "avatarPlaceholder": "Avatar image URL",
+      "submit": "Save",
+      "loading": "Loading…",
+      "loadError": "Could not load profile. Please try again.",
+      "saveError": "Could not save. Please try again.",
+      "saved": "Saved"
     }
   }
 }

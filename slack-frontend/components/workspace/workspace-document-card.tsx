@@ -1,6 +1,6 @@
 'use client'
 
-import type { MockDoc } from '@/lib/workspace-mock'
+import type { DocumentSummary } from '@/lib/services'
 
 import { FileText, Star } from 'lucide-react'
 
@@ -10,7 +10,7 @@ export function WorkspaceDocumentCard({
   doc,
   showFavoriteStar
 }: {
-  doc: MockDoc
+  doc: DocumentSummary
   showFavoriteStar?: boolean
 }) {
   const rel = doc.cardRelative ?? doc.updatedAt

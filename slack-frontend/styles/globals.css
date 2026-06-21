@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 @import '@heroui/styles';
-@import './workspace.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -15,4 +14,14 @@
   --color-workspace-border: #e8e8e8;
   --color-workspace-muted: #737373;
   --color-workspace-accent-green: #22c55e;
+}
+
+@layer base {
+  a[href],
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='menuitem'],
+  [role='link'] {
+    cursor: pointer;
+  }
 }

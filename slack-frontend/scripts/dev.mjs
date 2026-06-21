@@ -14,7 +14,8 @@ import readline from 'node:readline'
 
 /** 需要排除的「非真实局域网」网段与网卡名关键字 */
 const FAKE_IP_PREFIXES = ['198.18.', '198.19.', '169.254.']
-const VIRTUAL_NAME_RE = /(vmware|virtualbox|vethernet|hyper-?v|wsl|loopback|tailscale|zerotier|tap|tun|clash|docker)/i
+const VIRTUAL_NAME_RE =
+  /(vmware|virtualbox|vethernet|hyper-?v|wsl|loopback|tailscale|zerotier|tap|tun|clash|docker)/i
 
 function isPrivate(ip) {
   return /^(192\.168\.|10\.|172\.(1[6-9]|2\d|3[01])\.)/.test(ip)
@@ -49,15 +50,14 @@ const nextBin = require.resolve('next/dist/bin/next')
 
 const child = spawn(process.execPath, [nextBin, 'dev', '--turbopack', ...process.argv.slice(2)], {
   stdio: ['inherit', 'pipe', 'inherit'],
-  env: { FORCE_COLOR: '1', ...process.env },
+  env: { FORCE_COLOR: '1', ...process.env }
 })
 
 const rl = readline.createInterface({ input: child.stdout })
 
 rl.on('line', (line) => {
   // 仅改写 Network 行，且仅当我们找到了真实局域网 IP 时
-  const out =
-    lan && /Network:/.test(line) && ipv4Re.test(line) ? line.replace(ipv4Re, lan) : line
+  const out = lan && /Network:/.test(line) && ipv4Re.test(line) ? line.replace(ipv4Re, lan) : line
 
   process.stdout.write(out + '\n')
 })

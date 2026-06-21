@@ -27,14 +27,8 @@
       "workspace": "工作台"
     },
     "navMenu": {
-      "profile": "个人资料",
-      "dashboard": "仪表盘",
-      "projects": "项目",
-      "team": "团队",
-      "calendar": "日历",
       "settings": "设置",
-      "help": "帮助与反馈",
-      "logout": "退出登录"
+      "help": "帮助与反馈"
     }
   },
   "Navbar": {
@@ -65,6 +59,23 @@
     "title": "找不到页面",
     "description": "该链接可能已经失效，或地址输入有误。",
     "homeLink": "返回首页"
+  },
+  "Auth": {
+    "title": "欢迎回来",
+    "subtitle": "使用 GitHub 或邮箱登录",
+    "github": "使用 GitHub 登录",
+    "orContinueWith": "使用其他方式",
+    "emailLabel": "邮箱",
+    "emailPlaceholder": "输入你的邮箱",
+    "emailSubmit": "使用邮箱登录",
+    "emailSentTitle": "检查你的邮件",
+    "emailSentSubtitle": "登录链接已经发送到你的邮箱",
+    "emailSent": "登录链接已发送至 {email}，请查收邮件。",
+    "emailError": "发送登录链接失败，请稍后重试。",
+    "githubError": "GitHub 登录失败，请稍后重试或使用邮箱登录。",
+    "githubNotConfigured": "GitHub 登录尚未配置（需在 .env.local 设置 GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET）。",
+    "subtitleEmailOnly": "使用邮箱登录",
+    "google": "使用 Google 登录"
   },
   "Workspace": {
     "brandMoYu": "摸鱼",
@@ -146,6 +157,7 @@
       "share": "我的分享",
       "trash": "回收站",
       "publish": "我的发布",
+      "open": "打开对话框",
       "close": "关闭",
       "trashNotice": "注意，回收站的文档将保留 30 天，然后彻底删除",
       "searchFieldAria": "搜索",
@@ -162,7 +174,20 @@
       "trashSearchAria": "在回收站中搜索",
       "restore": "恢复",
       "delete": "删除",
-      "emptyTrash": "清空回收站"
+      "emptyTrash": "清空回收站",
+      "profileTitle": "修改用户信息"
+    },
+    "profile": {
+      "title": "修改用户信息",
+      "email": "邮箱",
+      "name": "名称",
+      "avatar": "头像",
+      "avatarPlaceholder": "头像图片 URL",
+      "submit": "提交",
+      "loading": "加载中…",
+      "loadError": "加载用户信息失败，请稍后重试。",
+      "saveError": "保存失败，请稍后重试。",
+      "saved": "已保存"
     }
   }
 }

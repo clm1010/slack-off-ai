@@ -1,9 +1,11 @@
 'use client'
 
-import { Button, cn, Input, InputGroup, Modal, TextField, useOverlayState } from '@heroui/react'
-import { FileText, Search } from 'lucide-react'
+import { Button, cn, Input, Modal, TextField, useOverlayState } from '@heroui/react'
+import { FileText } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
+import * as React from 'react'
 
+import { WorkspaceDocSearchField } from '../workspace-doc-search-field'
 import { useWorkspaceUI } from '../workspace-ui-context'
 import {
   workspaceDangerButtonClass,
@@ -11,12 +13,15 @@ import {
   workspacePrimaryButtonClass,
   workspaceSearchInputClass
 } from '../workspace-styles'
+import { UserProfileForm } from '../user-profile-form'
 
-import { getMockFavorites, getMockTrash } from '@/lib/workspace-mock'
+import { documentService } from '@/lib/services'
+import { useMounted } from '@/lib/use-mounted'
 
 export function WorkspaceModals() {
   const { activeModal, closeModal } = useWorkspaceUI()
   const t = useTranslations('Workspace.modals')
+  const mounted = useMounted()
 
   const modalState = useOverlayState({
     isOpen: activeModal !== null,
@@ -36,10 +41,17 @@ export function WorkspaceModals() {
             ? t('trash')
             : activeModal === 'publish'
               ? t('publish')
-              : ''
+              : activeModal === 'profile'
+                ? t('profileTitle')
+                : ''
+
+  if (!mounted) return null
 
   return (
     <Modal.Root state={modalState}>
+      <Modal.Trigger aria-hidden className='sr-only' tabIndex={-1}>
+        <span className='sr-only'>{t('open')}</span>
+      </Modal.Trigger>
       <Modal.Backdrop>
         <Modal.Container placement='center' scroll='inside' size='lg'>
           <Modal.Dialog className='max-w-lg sm:max-w-[min(90vw,42rem)]'>
@@ -60,6 +72,7 @@ export function WorkspaceModals() {
               {activeModal === 'share' && <ShareModalBody />}
               {activeModal === 'publish' && <PublishModalBody />}
               {activeModal === 'trash' && <TrashModalBody />}
+              {activeModal === 'profile' && <UserProfileForm />}
             </Modal.Body>
           </Modal.Dialog>
         </Modal.Container>
@@ -73,17 +86,11 @@ function SearchModalBody() {
 
   return (
     <div className='flex flex-col gap-4'>
-      <TextField aria-label={t('searchFieldAria')} variant='secondary'>
-        <InputGroup>
-          <InputGroup.Prefix>
-            <Search aria-hidden className='size-4 shrink-0 text-muted' />
-          </InputGroup.Prefix>
-          <InputGroup.Input
-            className={cn('h-10 pl-2', workspaceSearchInputClass)}
-            placeholder={t('searchPlaceholder')}
-          />
-        </InputGroup>
-      </TextField>
+      <WorkspaceDocSearchField
+        aria-label={t('searchFieldAria')}
+        name='modal-doc-search'
+        placeholder={t('searchPlaceholder')}
+      />
       <div className='flex min-h-[200px] flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-separator bg-surface-secondary/60 py-10 text-muted'>
         <FileText aria-hidden className='size-12 stroke-[1.25] text-muted opacity-40' />
         <p className='text-sm'>{t('noResults')}</p>
@@ -95,7 +102,7 @@ function SearchModalBody() {
 function FavoritesModalBody() {
   const locale = useLocale()
   const t = useTranslations('Workspace.modals')
-  const rows = getMockFavorites(locale)
+  const rows = documentService.listFavorites(locale)
 
   return (
     <div className='flex flex-col gap-3'>
@@ -155,7 +162,7 @@ function PublishModalBody() {
 function TrashModalBody() {
   const locale = useLocale()
   const t = useTranslations('Workspace.modals')
-  const trashRows = getMockTrash(locale)
+  const trashRows = documentService.listTrash(locale)
 
   return (
     <div className='flex flex-col gap-4'>

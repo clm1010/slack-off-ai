@@ -8,7 +8,7 @@ import { WorkspaceDocumentCard } from '../workspace-document-card'
 import { WorkspaceHomeSearchField } from '../workspace-header'
 import { workspacePrimaryButtonClass } from '../workspace-styles'
 
-import { getMockFavorites, getMockRecent, getMockShared } from '@/lib/workspace-mock'
+import { documentService } from '@/lib/services'
 
 function SectionHeader({
   title,
@@ -44,7 +44,7 @@ function DocCardGrid({
   moreLabel
 }: {
   title: string
-  items: ReturnType<typeof getMockRecent>
+  items: ReturnType<typeof documentService.listRecent>
   showFavoriteStar?: boolean
   onMore?: () => void
   emptyLabel: string
@@ -75,9 +75,9 @@ export function HomeOverview() {
   const { openModal } = useWorkspaceUI()
   const t = useTranslations('Workspace.homeOverview')
 
-  const recent = getMockRecent(locale)
-  const favorites = getMockFavorites(locale)
-  const shared = getMockShared(locale)
+  const recent = documentService.listRecent(locale)
+  const favorites = documentService.listFavorites(locale)
+  const shared = documentService.listShared(locale)
 
   return (
     <div className='flex min-h-0 flex-1 flex-col overflow-y-auto bg-background'>
@@ -87,7 +87,10 @@ export function HomeOverview() {
         <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
           <WorkspaceHomeSearchField />
           <Button
-            className={cn(workspacePrimaryButtonClass, 'h-11 shrink-0 font-medium sm:w-auto')}
+            className={cn(
+              workspacePrimaryButtonClass,
+              'h-10 shrink-0 rounded-md font-medium sm:w-auto'
+            )}
             variant='primary'
             onPress={() => {}}
           >

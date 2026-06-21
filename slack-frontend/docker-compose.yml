@@ -1,0 +1,37 @@
+# 摸鱼AI 本地开发基础设施（Postgres + Redis）
+# converter 请在本机单独运行 collabedit-doc-converter（默认 :3002）
+# 启动：pnpm db:up（在 slack-frontend 目录）
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: moyuai-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: moyu
+      POSTGRES_PASSWORD: moyu_dev
+      POSTGRES_DB: moyuai
+    ports:
+      - '5432:5432'
+    volumes:
+      - moyuai_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U moyu -d moyuai']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: moyuai-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  moyuai_pgdata:

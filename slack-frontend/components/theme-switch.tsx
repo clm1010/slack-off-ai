@@ -36,7 +36,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className }) => {
     <button
       aria-label={isLight ? t('switchToDark') : t('switchToLight')}
       className={clsx(
-        'px-px transition-opacity hover:opacity-80 cursor-pointer',
+        'cursor-pointer px-px transition-opacity hover:opacity-80',
         'inline-flex items-center justify-center',
         'w-auto h-auto bg-transparent rounded-lg text-muted',
         className
