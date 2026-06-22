@@ -1,0 +1,6 @@
+# 统一使用 LF，与 slack-frontend/.prettierrc 的 endOfLine 一致
+* text=auto eol=lf
+
+*.{cmd,bat} text eol=crlf
+
+*.{png,jpg,jpeg,gif,webp,ico,svg,woff,woff2,ttf,eot} binary

@@ -1,5 +1,7 @@
 # Cursor IDE
 .cursor/
 
-# Editor
+# Editor（保留 slack-frontend 工作区设置，统一 LF）
 .vscode/
+!slack-frontend/.vscode/
+!slack-frontend/.vscode/settings.json
