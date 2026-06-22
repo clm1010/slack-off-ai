@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation'
 import { Providers } from '../providers'
 
 import { routing } from '@/i18n/routing'
-import { fontSans } from '@/config/fonts'
+import { fontMono, fontSans } from '@/config/fonts'
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -67,8 +67,10 @@ export default async function LocaleLayout({
       <body
         suppressHydrationWarning
         className={clsx(
-          'min-h-screen text-foreground bg-background font-sans antialiased',
-          fontSans.variable
+          fontSans.className,
+          fontSans.variable,
+          fontMono.variable,
+          'min-h-screen text-foreground bg-background antialiased'
         )}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>

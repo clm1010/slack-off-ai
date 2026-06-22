@@ -1,3 +1,4 @@
+/* eslint-disable no-console -- logger 封装 console，仅此文件允许直接调用 */
 type LogLevel = 'debug' | 'info' | 'warn' | 'error'
 
 const levelOrder: Record<LogLevel, number> = {

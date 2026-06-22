@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { headers } from 'next/headers'
 
 import { routing } from '@/i18n/routing'
-import { fontSans } from '@/config/fonts'
+import { fontMono, fontSans } from '@/config/fonts'
 
 /** 与 next-intl middleware 注入一致 */
 const NEXT_INTL_LOCALE_HEADER = 'x-next-intl-locale'
@@ -38,8 +38,10 @@ export default async function GlobalNotFound() {
       <body
         suppressHydrationWarning
         className={clsx(
-          'min-h-screen text-foreground bg-background font-sans antialiased',
-          fontSans.variable
+          fontSans.className,
+          fontSans.variable,
+          fontMono.variable,
+          'min-h-screen text-foreground bg-background antialiased'
         )}
       >
         <main className='mx-auto flex min-h-screen max-w-md flex-col items-center justify-center gap-4 px-6 text-center'>

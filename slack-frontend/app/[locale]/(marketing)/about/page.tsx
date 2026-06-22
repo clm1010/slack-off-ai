@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { getTranslations } from 'next-intl/server'
 
-import { title } from '@/components/primitives'
+import { MarketingPageTitle } from '@/components/marketing/marketing-page-title'
 import { buildLocaleAlternates } from '@/lib/metadata-alternates'
 
 export async function generateMetadata({
@@ -22,7 +22,7 @@ export default async function AboutPage() {
 
   return (
     <div>
-      <h1 className={title()}>{t('about')}</h1>
+      <MarketingPageTitle>{t('about')}</MarketingPageTitle>
     </div>
   )
 }

@@ -4,9 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans:
-    var(--font-inter), ui-sans-serif, system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-mono: ui-monospace, monospace;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-fira-code), ui-monospace, monospace;
 
   /* 工作台物理色由 .workspace-shell 覆盖；此处仅作 Tailwind 工具类后备 */
   --color-workspace-sidebar: #f9f9f9;
