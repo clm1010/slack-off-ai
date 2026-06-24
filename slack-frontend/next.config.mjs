@@ -39,6 +39,15 @@ const nextConfig = {
   allowedDevOrigins: allowedDevOriginsEnv?.length ? allowedDevOriginsEnv : ['192.168.1.70'],
   turbopack: {
     root: __dirname
+  },
+  async redirects() {
+    return [
+      {
+        source: '/:locale(zh|en)/pricing',
+        destination: '/:locale/ai-token',
+        permanent: true
+      }
+    ]
   }
 }
 

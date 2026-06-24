@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl'
 
 import { Link, usePathname } from '@/i18n/navigation'
+import { AI_TOKEN_MONTHLY_LIMIT } from '@/lib/ai-token-mock'
 import { documentService } from '@/lib/services'
 
 export function WorkspaceFooter() {
@@ -22,8 +23,15 @@ export function WorkspaceFooter() {
     <footer className='flex min-h-9 shrink-0 flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-separator bg-surface px-4 py-2 text-xs text-muted'>
       <span>{left}</span>
       <span className='text-right'>
-        {t('hint')} <strong className='font-semibold text-[var(--ws-success)]'>100000</strong>，
-        <Link className='text-[var(--ws-success)] underline underline-offset-2' href='/pricing'>
+        {t('hint')}{' '}
+        <strong className='font-semibold text-[var(--ws-success)]'>
+          {AI_TOKEN_MONTHLY_LIMIT.toLocaleString()}
+        </strong>
+        ，
+        <Link
+          className='text-[var(--ws-success)] underline underline-offset-2'
+          href='/ai-token#add-limit-heading'
+        >
           {t('getMore')}
         </Link>
       </span>

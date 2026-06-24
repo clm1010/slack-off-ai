@@ -5,7 +5,7 @@ export const siteConfig = {
   navItems: [
     { navKey: 'home' as const, href: '/' },
     { navKey: 'docs' as const, href: '/docs' },
-    { navKey: 'pricing' as const, href: '/pricing' },
+    { navKey: 'pricing' as const, href: '/ai-token' },
     { navKey: 'blog' as const, href: '/blog' },
     { navKey: 'about' as const, href: '/about' },
     { navKey: 'workspace' as const, href: '/home' }

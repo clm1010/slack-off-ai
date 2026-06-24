@@ -11,6 +11,21 @@ import { ThemeSwitch } from '@/components/theme-switch'
 import { BrandMark } from '@/components/workspace/brand-mark'
 import { siteConfig } from '@/config/site'
 import { Link as IntlLink, usePathname } from '@/i18n/navigation'
+import { usesMinimalMarketingNav } from '@/lib/marketing-nav'
+
+function MinimalMarketingNav() {
+  return (
+    <nav className='sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg'>
+      <header className='mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-6'>
+        <BrandMark href='/' />
+        <div className='flex items-center gap-1'>
+          <ThemeSwitch />
+          <LanguageSwitch />
+        </div>
+      </header>
+    </nav>
+  )
+}
 
 export const Navbar = () => {
   const pathname = usePathname()
@@ -19,18 +34,8 @@ export const Navbar = () => {
   const tSiteNav = useTranslations('Site.nav')
   const tSiteMenu = useTranslations('Site.navMenu')
 
-  if (pathname === '/') {
-    return (
-      <nav className='sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg'>
-        <header className='mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-6'>
-          <BrandMark href='/' />
-          <div className='flex items-center gap-1'>
-            <ThemeSwitch />
-            <LanguageSwitch />
-          </div>
-        </header>
-      </nav>
-    )
+  if (usesMinimalMarketingNav(pathname)) {
+    return <MinimalMarketingNav />
   }
 
   const searchInput = (

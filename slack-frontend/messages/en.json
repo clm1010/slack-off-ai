@@ -15,7 +15,37 @@
       "titleRest": "and docs workspace",
       "cta": "Open workspace"
     },
-    "footer": "Moyu AI · powered by HeroUI & Next.js"
+    "footer": "Moyu AI · powered by HeroUI & Next.js",
+    "pricing": {
+      "metaTitle": "AI Token limit",
+      "whatIsToken": {
+        "heading": "What is token",
+        "intro": "Tokens are the basic units large language models use to process text. Both reading input and generating output are measured in tokens.",
+        "bullets": {
+          "conversion": "100 tokens are roughly 75 English words, or about 50 Chinese characters.",
+          "pricingRich": "See <link>OpenAI API pricing</link> for reference.",
+          "usage": "Both input (prompt) and output (completion) count toward token usage."
+        },
+        "tokenizerLink": "OpenAI tokenizer"
+      },
+      "whatIsLimit": {
+        "heading": "What is token limit",
+        "p1": "Token limit caps how much AI you can use — it helps control cost and keep the service stable. Every registered user gets an allowance.",
+        "p2": "Your balance can refill automatically on a schedule, or you can claim more manually when you are below the cap."
+      },
+      "getLimit": {
+        "heading": "Get token limit",
+        "subheading": "How token limits are granted",
+        "rules": {
+          "monthly": "On the 1st of each month, reset to {limit} tokens if your balance is below that amount.",
+          "weekly": "Claim {amount} tokens manually each week when your balance is below {cap}."
+        }
+      },
+      "claim": {
+        "status": "Your token limit is {balance}, last updated at {updatedAt}",
+        "action": "Get token limit"
+      }
+    }
   },
   "Site": {
     "nav": {

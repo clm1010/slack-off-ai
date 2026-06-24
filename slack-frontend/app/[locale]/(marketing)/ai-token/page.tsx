@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { getTranslations } from 'next-intl/server'
 
-import { MarketingPageTitle } from '@/components/marketing/marketing-page-title'
+import { PricingTokenContent } from '@/components/marketing/pricing-token-content'
 import { buildLocaleAlternates } from '@/lib/metadata-alternates'
 
 export async function generateMetadata({
@@ -11,18 +11,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Marketing.pricing' })
 
   return {
-    ...buildLocaleAlternates(locale, '/pricing')
+    title: t('metaTitle'),
+    ...buildLocaleAlternates(locale, '/ai-token')
   }
 }
 
-export default async function PricingPage() {
-  const t = await getTranslations('Marketing.pages')
-
-  return (
-    <div>
-      <MarketingPageTitle>{t('pricing')}</MarketingPageTitle>
-    </div>
-  )
+export default function AiTokenPage() {
+  return <PricingTokenContent />
 }

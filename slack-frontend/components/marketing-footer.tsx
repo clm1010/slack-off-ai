@@ -3,12 +3,13 @@
 import { useTranslations } from 'next-intl'
 
 import { usePathname } from '@/i18n/navigation'
+import { usesMinimalMarketingNav } from '@/lib/marketing-nav'
 
 export function MarketingFooter() {
   const pathname = usePathname()
   const t = useTranslations('Marketing')
 
-  if (pathname === '/') return null
+  if (usesMinimalMarketingNav(pathname)) return null
 
   return (
     <footer className='flex w-full items-center justify-center py-3 text-sm text-muted'>

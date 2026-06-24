@@ -19,10 +19,12 @@ import * as React from 'react'
 import { useWorkspaceUI } from '../workspace-ui-context'
 import { workspaceAiTextAreaClass } from '../workspace-styles'
 
+import { Link } from '@/i18n/navigation'
 import { documentService } from '@/lib/services'
+import { AI_TOKEN_MONTHLY_LIMIT } from '@/lib/ai-token-mock'
 
 /** 与划水工作台示意一致：底部 token 展示（mock） */
-const MOCK_AI_TOKEN_BUDGET = 100000
+const MOCK_AI_TOKEN_BUDGET = AI_TOKEN_MONTHLY_LIMIT
 
 export function DocumentEditorMock({ documentId }: { documentId: string }) {
   const locale = useLocale()
@@ -227,13 +229,12 @@ export function DocumentEditorMock({ documentId }: { documentId: string }) {
                     </span>
                   ),
                   lnk: (chunks) => (
-                    <button
+                    <Link
                       className='text-[var(--ws-success)] underline underline-offset-[3px] hover:opacity-90'
-                      type='button'
-                      onClick={() => {}}
+                      href='/ai-token#add-limit-heading'
                     >
                       {chunks}
-                    </button>
+                    </Link>
                   )
                 })}
               </span>

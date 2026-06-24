@@ -15,7 +15,37 @@
       "titleRest": "与文档工作台",
       "cta": "进入工作台"
     },
-    "footer": "摸鱼AI · 由 HeroUI 与 Next.js 驱动"
+    "footer": "摸鱼AI · 由 HeroUI 与 Next.js 驱动",
+    "pricing": {
+      "metaTitle": "AI Token 额度",
+      "whatIsToken": {
+        "heading": "什么是 token",
+        "intro": "Token 是大语言模型处理文本的基本单位。模型在读取与生成内容时，都会按 token 计量用量。",
+        "bullets": {
+          "conversion": "100 个 token 约等于 75 个英文单词，或 50 个中文字符。",
+          "pricingRich": "Token 定价可参考 <link>OpenAI API 价格</link>。",
+          "usage": "输入（prompt）与输出（completion）均计入 token 用量。"
+        },
+        "tokenizerLink": "OpenAI tokenizer"
+      },
+      "whatIsLimit": {
+        "heading": "什么是 token limit",
+        "p1": "Token limit 是对 AI 用量的限制，用于控制成本并保证服务稳定。每位注册用户都会获得一定的 token 额度。",
+        "p2": "额度可按规则自动补充，也可在额度不足时手动领取。"
+      },
+      "getLimit": {
+        "heading": "获取 token limit",
+        "subheading": "token limit 获取规则",
+        "rules": {
+          "monthly": "每月 1 日自动重置为 {limit} token（当前余额低于该值时）。",
+          "weekly": "每周可手动领取 {amount} token（当前余额低于 {cap} 时）。"
+        }
+      },
+      "claim": {
+        "status": "你当前 token limit 为 {balance}，上次更新于 {updatedAt}",
+        "action": "获取 token limit"
+      }
+    }
   },
   "Site": {
     "nav": {
